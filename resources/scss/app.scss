@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.testing1 {
+    color: green;
+    background: #2563eb;
+
+    .one {
+        color: darkgoldenrod;
+    }
+}
+
+.infodiv {
+    @apply
+    bg-sky-500
+    text-blue-700
+    font-bold
+    py-5
+    px-10
+}
