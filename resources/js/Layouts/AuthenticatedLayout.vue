@@ -7,6 +7,7 @@ import NavLink from "@/Components/NavLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
 import { Link } from "@inertiajs/vue3";
 import 'primeicons/primeicons.css'
+import DeleteUserForm from '@/Pages/Profile/Partials/DeleteUserForm.vue';
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -193,17 +194,15 @@ const showingNavigationDropdown = ref(false);
 
                     <!-- Page Content -->
                     <main class="p-10 text-black h-[90vh]">
-                        <div class="bg-white shadow p-10">Content Here</div>
-                        <div class="bg-white shadow p-10 mt-10">
 
+                        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                             <slot name="header" />
 
                             <slot name="content" />
+                        </div>
 
+                        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                             <slot />
-
-
-                            Content Here
                         </div>
                     </main>
                 </div>

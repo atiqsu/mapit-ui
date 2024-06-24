@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StudyCreateRequest;
 use App\Models\Study;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -18,15 +20,22 @@ class StudyController extends Controller
     }
 
 
-    public function store(): RedirectResponse
+    public function store(StudyCreateRequest $request): RedirectResponse
     {
-        Study::create(
-            Request::validate([
-                                  'name' => ['required', 'max:100'],
-                                  'code' => ['required', 'max:100'],
-                              ])
-        );
+        Study::create($request->validated());
 
         return Redirect::route('study.index')->with('success', 'Study created.');
     }
+
+    public function edit(Request $request, Study $study): JsonResponse
+    {
+
+        $dt['req'] = $request->all();
+        $dt['ss'] = $request->pa();
+        $dt['st'] = $study;
+
+
+        return response()->json($dt);
+    }
+
 }

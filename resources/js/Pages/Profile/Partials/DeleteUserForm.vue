@@ -9,7 +9,7 @@ import { useForm } from '@inertiajs/vue3';
 import { nextTick, ref } from 'vue';
 
 const confirmingUserDeletion = ref(false);
-const passwordInput = ref(null);
+const nameInputFocus = ref('');
 
 const form = useForm({
     password: '',
@@ -18,14 +18,14 @@ const form = useForm({
 const confirmUserDeletion = () => {
     confirmingUserDeletion.value = true;
 
-    nextTick(() => passwordInput.value.focus());
+    nextTick(() => nameInputFocus.value.focus());
 };
 
 const deleteUser = () => {
     form.delete(route('profile.destroy'), {
         preserveScroll: true,
         onSuccess: () => closeModal(),
-        onError: () => passwordInput.value.focus(),
+        onError: () => nameInputFocus.value.focus(),
         onFinish: () => form.reset(),
     });
 };
@@ -62,19 +62,18 @@ const closeModal = () => {
                 </p>
 
                 <div class="mt-6">
-                    <InputLabel for="password" value="Password" class="sr-only" />
+                    <InputLabel for="name" value="Study name" class="sr-only" />
 
                     <TextInput
-                        id="password"
-                        ref="passwordInput"
-                        v-model="form.password"
-                        type="password"
+                        id="name"
+                        ref="nameInputFocus"
+                        v-model="form.name"
                         class="mt-1 block w-3/4"
-                        placeholder="Password"
+                        placeholder="Study name..."
                         @keyup.enter="deleteUser"
                     />
 
-                    <InputError :message="form.errors.password" class="mt-2" />
+                    <InputError :message="form.errors.name" class="mt-2" />
                 </div>
 
                 <div class="mt-6 flex justify-end">
