@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
     /**
      * Studies
      */
-    Route::get('study', [StudyController::class, 'index'])->name('studies');
+    Route::get('study', [StudyController::class, 'index'])->name('study.index');
 
     Route::get('study/create', [StudyController::class, 'create'])->name('studies.create');
     Route::post('study', [StudyController::class, 'store'])->name('studies.store');
