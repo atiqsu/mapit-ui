@@ -112,7 +112,6 @@ const createProject = () => {
 
         </template>
 
-        <DeleteUserForm class="max-w-xl" />
 
 
         <Modal :show="modalIsVisible" @close="closeModal">
