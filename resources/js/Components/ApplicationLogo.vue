@@ -1,3 +1,3 @@
 <template>
-   <img src="../../images/logo.svg" alt="">
+   <img class="w-full" src="../../images/logo.svg" alt="">
 </template>
