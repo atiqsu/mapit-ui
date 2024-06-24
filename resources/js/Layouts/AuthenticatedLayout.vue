@@ -19,8 +19,9 @@ const showingNavigationDropdown = ref(false);
                 <nav
                     class="fixed top-0 left-0 bg-[#c12f30] p-[21px] border-b border-gray-100 dark:border-gray-700 h-[100vh] w-[256px] ">
                     <!-- Vertical Navigation Menu -->
-                    <div class="w-full h-full ">
+                    <div class="w-full h-full relative">
                         <div class="">
+                            <!-- Top Nav Items -->
                             <div>
                                 <!-- Logo -->
                                 <div class=" w-[80%] mb-5">
@@ -38,11 +39,12 @@ const showingNavigationDropdown = ref(false);
 
                                 </div>
                             </div>
+                            <!--  Bottom Box -->
                             <div class="bg-[#E06F77] p-3 absolute bottom-0 left-0 right-0 rounded">
                                 <div class="relative">
                                     <span
-                                        class="absolute top-[-21px] bg-[#C12F30] p-2 rounded-full text-2xl font-bold w-[fit-content] mx-auto right-0 left-0 border border-white border-3 text-white"><i
-                                            class="pi pi-question-circle"></i></span>
+                                        class="absolute top-[-21px] bg-[#C12F30] p-2 rounded-full text-2xl font-bold w-[37px] h-[37px] flex items-center justify-center mx-auto right-0 left-0 border border-white border-[5px] text-white"><i
+                                            class="pi pi-question"></i></span>
                                 </div>
 
                             </div>
@@ -148,18 +150,18 @@ const showingNavigationDropdown = ref(false);
                                                             <span
                                                                 class="text-left font-bold text-black text-[18px] capitalize">
                                                                 {{
-                                        $page.props
-                                            .auth
-                                            .user
-                                            .name
-                                    }}</span>
+                                                                $page.props
+                                                                .auth
+                                                                .user
+                                                                .name
+                                                                }}</span>
                                                             <span>
                                                                 {{
-                                            $page.props
-                                                .auth
-                                                .user
-                                                .email
-                                        }}</span>
+                                                                $page.props
+                                                                .auth
+                                                                .user
+                                                                .email
+                                                                }}</span>
                                                         </span>
 
                                                         <svg class="ms-2 -me-0.5 h-4 w-4"
