@@ -7,7 +7,6 @@ import NavLink from "@/Components/NavLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
 import { Link } from "@inertiajs/vue3";
 import 'primeicons/primeicons.css'
-import DeleteUserForm from '@/Pages/Profile/Partials/DeleteUserForm.vue';
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -18,69 +17,79 @@ const showingNavigationDropdown = ref(false);
             <div class="flex">
                 <!-- Left Side Navigation Bar -->
                 <nav
-                    class="fixed top-0 left-0 bg-[#c12f30] p-[21px] border-b border-gray-100 dark:border-gray-700 h-[100vh] w-[256px] ">
+                    class="fixed top-0 left-0 bg-[#c12f30] p-[21px] border-b border-gray-100 dark:border-gray-700 h-[100vh] w-[256px]">
                     <!-- Vertical Navigation Menu -->
-                    <div class="w-full h-full relative">
-                        <div class="">
-                            <!-- Top Nav Items -->
-                            <div>
-                                <!-- Logo -->
-                                <div class=" w-[80%] mb-5">
-                                    <Link :href="route('dashboard')">
-                                    <ApplicationLogo class="bg-white" />
-                                    </Link>
-                                </div>
-
-                                <!-- Navigation Links -->
-                                <div class="hidden sm:flex ">
-                                    <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                        <i class=" pi pi-objects-column"></i>
-                                        Dashboard
-                                    </NavLink>
-
-                                </div>
-                            </div>
-                            <!--  Bottom Box -->
-                            <div class="bg-[#E06F77] p-3 absolute bottom-0 left-0 right-0 rounded">
-                                <div class="relative">
-                                    <span
-                                        class="absolute top-[-21px] bg-[#C12F30] p-2 rounded-full text-2xl font-bold w-[37px] h-[37px] flex items-center justify-center mx-auto right-0 left-0 border border-white border-[5px] text-white"><i
-                                            class="pi pi-question"></i></span>
-                                </div>
-
+                    <div class="w-full h-full flex flex-col justify-between relative">
+                        <div>
+                            <!-- Logo -->
+                            <div class="w-[80%] mb-5">
+                                <Link :href="route('dashboard')">
+                                <ApplicationLogo class="bg-white" />
+                                </Link>
                             </div>
 
-                            <!-- Hamburger -->
-                            <div class="-me-2 flex items-center sm:hidden">
-                                <button @click="
-                                        showingNavigationDropdown =
-                                        !showingNavigationDropdown
-                                        "
-                                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out">
-                                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                        <path :class="{
-                                        hidden: showingNavigationDropdown,
-                                        'inline-flex':
-                                            !showingNavigationDropdown,
-                                    }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4 6h16M4 12h16M4 18h16" />
-                                        <path :class="{
-                                        hidden: !showingNavigationDropdown,
-                                        'inline-flex':
-                                            showingNavigationDropdown,
-                                    }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
+                            <!-- Navigation Links -->
+                            <div class="hidden sm:flex">
+                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                    <i class="pi pi-objects-column"></i>
+                                    Dashboard
+                                </NavLink>
                             </div>
                         </div>
+                        <!--  Bottom Box -->
+                        <div class="bg-[#E06F77] rounded text-white text-center rounded-lg relative">
+                            <div class="relative p-3 z-50">
+                                <span
+                                    class="absolute top-[-20px] bg-[#C12F30] p-3 rounded-full text-lg font-bold w-[37px] h-[37px] flex items-center justify-center mx-auto right-0 left-0 border border-white border-[5px] text-white"><i
+                                        class="pi pi-question"></i></span>
+                                <h3 class="pt-5 pb-16 text-xl">
+                                    Help Center
+                                </h3>
+                                <a class="bg-white text-[#C12F30] w-full px-3 py-2 rounded-lg block font-semibold"
+                                    href="">
+                                    Documentation
+                                </a>
+                            </div>
+                            <div class="absolute overflow-hidden top-0 right-0 bottom-0 left-0 rounded-lg z-0">
+
+                                <span
+                                    class="absolute top-[-20%] left-[-20%] w-[130px] h-[130px] bg-[#e27a80] rounded-full"></span>
+                                <span
+                                    class="absolute bottom-[-20%] right-[-20%] w-[120px] h-[120px] bg-[#e27a80] rounded-full"></span>
+                            </div>
+                        </div>
+
+                        <!-- Hamburger -->
+                        <div class="-me-2 flex items-center sm:hidden">
+                            <button @click="
+                                    showingNavigationDropdown =
+                                    !showingNavigationDropdown
+                                    "
+                                class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out">
+                                <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                                    <path :class="{
+                                    hidden: showingNavigationDropdown,
+                                    'inline-flex':
+                                        !showingNavigationDropdown,
+                                }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 6h16M4 12h16M4 18h16" />
+                                    <path :class="{
+                                    hidden: !showingNavigationDropdown,
+                                    'inline-flex':
+                                        showingNavigationDropdown,
+                                }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+
                     </div>
 
                     <!-- Responsive Navigation Menu -->
                     <div :class="{
-                                        block: showingNavigationDropdown,
-                                        hidden: !showingNavigationDropdown,
-                                    }" class="sm:hidden">
+                                    block: showingNavigationDropdown,
+                                    hidden: !showingNavigationDropdown,
+                                }" class="sm:hidden">
                         <div class="pt-2 pb-3 space-y-1">
                             <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                 Dashboard
@@ -116,14 +125,14 @@ const showingNavigationDropdown = ref(false);
                         <header>
                             <div class="hidden sm:flex sm:items-center px-5 justify-between items-center">
                                 <!-- Top header left side Content -->
-                                <div>
-                                    <h3 class="text-2xl font-bold">
-                                        SDTM Autamation
-                                    </h3>
-                                    <p class="text-slate-400">
-                                        Focused on metadata driven processes
-                                    </p>
-                                </div>
+                                <Link :href="route('dashboard') ">
+                                <h3 class="text-2xl font-bold">
+                                    SDTM Autamation
+                                </h3>
+                                <p class="text-slate-400">
+                                    Focused on metadata driven processes
+                                </p>
+                                </Link>
                                 <!-- Top header right side Content -->
                                 <div class="flex items-center gap-3">
                                     <!-- Notification Button -->
