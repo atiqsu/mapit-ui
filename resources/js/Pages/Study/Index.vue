@@ -96,11 +96,10 @@ const createProject = () => {
     <AuthenticatedLayout>
         <template #header>
             <div class="flex justify-between items-center pb-6">
-                <h2 class="font-semibold text-[18px] text-black leading-tight">Default Study
-                    Configuration
-                </h2>
+                <h2 class="font-semibold text-[18px] text-black leading-tight"> List of studies </h2>
 
-                <AddNewButton @click="showModalForAddNew">+ Add new</AddNewButton>
+                <AddNewButton @click="showModalForAddNew"> Create </AddNewButton>
+
             </div>
 
         </template>
@@ -235,13 +234,13 @@ const createProject = () => {
 
 <style scoped lang="scss">
 
-table {
-    tr:nth-child(even) {
-       
-            td {
-                background-color: #f1f4f9 !important;
-            }
-        
+    table {
+        tr:nth-child(even) {
+
+                td {
+                    background-color: #f1f4f9 !important;
+                }
+
+        }
     }
-}
 </style>
