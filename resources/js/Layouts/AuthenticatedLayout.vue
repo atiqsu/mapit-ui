@@ -17,7 +17,7 @@ const showingNavigationDropdown = ref(false);
             <div class="flex">
                 <!-- Left Side Navigation Bar -->
                 <nav
-                    class="fixed top-0 left-0 bg-[#c12f30] p-[21px] border-b border-gray-100 dark:border-gray-700 h-[100vh] w-[256px]">
+                    class="fixed top-0 left-0 bg-[#c12f30] p-[21px] border-b border-gray-100 dark:border-gray-700 h-[100vh] w-[256px] ">
                     <!-- Vertical Navigation Menu -->
                     <div class="w-full h-full flex flex-col justify-between relative">
                         <div>
@@ -29,10 +29,14 @@ const showingNavigationDropdown = ref(false);
                             </div>
 
                             <!-- Navigation Links -->
-                            <div class="hidden sm:flex">
+                            <div class="hidden flex-col gap-6 sm:flex">
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     <i class="pi pi-objects-column"></i>
                                     Dashboard
+                                </NavLink>
+                                <NavLink>
+                                    <i class="pi pi-ticket"></i>
+                                    Projects
                                 </NavLink>
                             </div>
                         </div>
