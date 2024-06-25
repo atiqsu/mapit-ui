@@ -15,6 +15,7 @@ import {useForm} from '@inertiajs/vue3';
 import SubmitButton from '@/Components/SubmitButton.vue';
 import ActionBtnEdit from '@/Components/ActionBtnEdit.vue';
 import ActionBtnDelete from '@/Components/ActionBtnDelete.vue';
+import editIcon from '../../../images/edit.svg'
 
 defineProps({
     studies: {
@@ -37,7 +38,7 @@ const editStudy = useForm({
 
 
 
-const tblCols = ["ID", "name", "Code", ""];
+const tblCols = ["ID", "name", "Code", "Actions"];
 const modalIsVisible = ref(false);
 const editModalIsVisible = ref(false);
 const nameInputFocus = ref('');
@@ -94,39 +95,46 @@ const createProject = () => {
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">List of studies</h2>
+            <div class="flex justify-between items-center pb-6">
+                <h2 class="font-semibold text-[18px] text-black leading-tight">Default Study
+                    Configuration
+                </h2>
 
-            <AddNewButton @click="showModalForAddNew">+ Add new</AddNewButton>
+                <AddNewButton @click="showModalForAddNew">+ Add new</AddNewButton>
+            </div>
 
         </template>
 
         <template #content>
 
 
-            <table>
+            <table class="w-full border border-[#f3f3f7] rounded-lg">
                 <thead>
-                <tr>
-                    <th v-for="col in tblCols" :key="col">
-                        {{ col }}
-                    </th>
-                </tr>
+                    <tr class="bg-[#f1f4f9]">
+                        <th v-for="col in tblCols" :key="col" class="text-left p-4">
+                            {{ col }}
+                        </th>
+
+                    </tr>
                 </thead>
                 <tbody>
-                <tr v-for="study in studies" :key="study.id">
-                    <td>{{ study.id }}</td>
-                    <td>{{ study.name }}</td>
-                    <td>{{ study.code }}</td>
-                    <td>
-                        <ActionBtnEdit @click="showModalForEdit(study)">Edit</ActionBtnEdit>
-                        <ActionBtnDelete @click="showModalForAddNew">Delete</ActionBtnDelete>
-                    </td>
-                </tr>
+                    <tr v-for="study in studies" :key="study.id">
+                        <td class="p-4">{{ study.id }}</td>
+                        <td class="p-4">{{ study.name }}</td>
+                        <td class="p-4">{{ study.code }}</td>
+                        <td class="p-4 flex items-center gap-3">
+                            <ActionBtnEdit @click="showModalForEdit(study.id)">
+                                <img class="w-[16px]" :src="editIcon" alt="">
+                            </ActionBtnEdit>
+                            <ActionBtnDelete @click="showModalForAddNew"><i class="pi pi-trash
+"></i></ActionBtnDelete>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
 
         </template>
 
-        <DeleteUserForm class="max-w-xl" />
 
 
         <Modal :show="modalIsVisible" @close="closeModal">
@@ -141,13 +149,8 @@ const createProject = () => {
                 <div class="mt-6">
                     <InputLabel for="name" value="Study name" class="sr-only" />
 
-                    <TextInput
-                        id="name"
-                        ref="nameInputFocus"
-                        v-model="form.name"
-                        class="mt-1 block w-3/4"
-                        placeholder="Study name..."
-                    />
+                    <TextInput id="name" ref="nameInputFocus" v-model="form.name" class="mt-1 block w-3/4"
+                        placeholder="Study name..." />
 
                     <InputError :message="form.errors.name" class="mt-2" />
                 </div>
@@ -155,12 +158,7 @@ const createProject = () => {
                 <div class="mt-6">
                     <InputLabel for="code" value="Study code" class="sr-only" />
 
-                    <TextInput
-                        id="code"
-                        v-model="form.code"
-                        class="mt-1 block w-3/4"
-                        placeholder="Study code..."
-                    />
+                    <TextInput id="code" v-model="form.code" class="mt-1 block w-3/4" placeholder="Study code..." />
 
                     <InputError :message="form.errors.code" class="mt-2" />
                 </div>
@@ -168,12 +166,8 @@ const createProject = () => {
                 <div class="mt-6 flex justify-end">
                     <SecondaryButton @click="closeModal"> Cancel </SecondaryButton>
 
-                    <SubmitButton
-                        class="ms-3"
-                        :class="{ 'opacity-25': form.processing }"
-                        :disabled="form.processing"
-                        @click="createProject"
-                    >
+                    <SubmitButton class="ms-3" :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
+                        @click="createProject">
                         Create
                     </SubmitButton>
                 </div>
@@ -241,4 +235,13 @@ const createProject = () => {
 
 <style scoped lang="scss">
 
+table {
+    tr:nth-child(even) {
+       
+            td {
+                background-color: #f1f4f9 !important;
+            }
+        
+    }
+}
 </style>
