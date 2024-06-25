@@ -50,6 +50,26 @@ const activeLinkStyle = computed(() =>
                                     <i class="pi pi-ticket"></i>
                                     Projects
                                 </NavLink>
+                                <NavLink>
+                                    <i class="pi pi-users"></i>
+                                    Users
+                                </NavLink>
+                                <NavLink>
+                                    <i class="pi pi-th-large"></i>
+                                    Rules
+                                </NavLink>
+                                <NavLink>
+                                    <i class="pi pi-chart-bar"></i>
+                                    Report
+                                </NavLink>
+                                <NavLink>
+                                    <i class="pi pi-cog"></i>
+                                    Setting
+                                </NavLink>
+                                <NavLink>
+                                    <i class="pi pi-power-off"></i>
+                                    Logout
+                                </NavLink>
                             </div>
                         </div>
                         <!--  Bottom Box -->
