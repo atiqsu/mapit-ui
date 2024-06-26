@@ -13,6 +13,7 @@ import ActionBtnEdit from "@/Components/ActionBtnEdit.vue";
 import ActionBtnDelete from "@/Components/ActionBtnDelete.vue";
 import userModalIcon from "../../../images/userModalIcon.svg";
 import CancelButton from '@/Components/CancelButton.vue';
+import ActionBtnActive from '@/Components/ActionBtnActive.vue';
 
 defineProps({
     studies: {
@@ -123,9 +124,9 @@ const createProject = () => {
                         <td class="p-4">{{ study.code }}</td>
                         <td class="p-4 flex items-center gap-3">
                             <ActionBtnEdit @click="showModalForEdit(study)"></ActionBtnEdit>
-                            <ActionBtnDelete @click="showModalForAddNew">
-                                <i class="pi pi-trash"></i>
-                            </ActionBtnDelete>
+
+                            <ActionBtnActive status="0" />
+                            
                         </td>
                     </tr>
                 </tbody>
@@ -266,7 +267,6 @@ const createProject = () => {
                     </SecondaryButton>
 
                     <SubmitButton
-                        class="ms-3"
                         :class="{ 'opacity-25': form.processing }"
                         :disabled="form.processing"
                         @click="createProject"
