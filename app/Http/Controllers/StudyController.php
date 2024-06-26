@@ -18,7 +18,7 @@ class StudyController extends Controller
     public function index(): Response
     {
         return Inertia::render('Study/Index', [
-            'studies' => Study::all(),
+            'studies' =>  Study::with('users')->get(),
             'users' => User::select('id', 'name')->orderby('name', 'asc')->get()]
         );
     }
@@ -26,7 +26,9 @@ class StudyController extends Controller
 
     public function store(StudyCreateRequest $request): RedirectResponse
     {
-        Study::create($request->validated());
+        //Study::create($request->validated());
+
+        dd($request->validated());
 
         return Redirect::route('study.index')->with('success', 'Study created.');
     }

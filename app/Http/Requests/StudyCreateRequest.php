@@ -24,6 +24,7 @@ class StudyCreateRequest extends FormRequest
         return [
             'name' => ['required', 'max:100'],
             'code' => ['required', 'max:100'],
+            'users' => ['nullable|array'],
         ];
     }
 }

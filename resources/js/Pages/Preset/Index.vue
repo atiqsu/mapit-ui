@@ -1,8 +1,9 @@
 <script setup>
-import { nextTick, ref } from "vue";
-import { useForm } from "@inertiajs/vue3";
+import {nextTick, ref} from "vue";
+import {useForm} from "@inertiajs/vue3";
 import MultiSelect from "primevue/multiselect";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import Select from 'primevue/select';
 
 const props = defineProps({
     studies: {
@@ -46,10 +47,10 @@ const editStudy = useForm({
     code: "",
 });
 
-const tblCols = ["ID", "name", "Code", "Actions"];
-const modalIsVisible = ref(false);
+const tblCols            = ["ID", "name", "Code", "Actions"];
+const modalIsVisible     = ref(false);
 const editModalIsVisible = ref(false);
-const nameInputFocus = ref("");
+const nameInputFocus     = ref("");
 
 const showModalForAddNew = () => {
     modalIsVisible.value = true;
@@ -59,7 +60,7 @@ const showModalForAddNew = () => {
 
 const showModalForEdit = (idd) => {
     editModalIsVisible.value = true;
-    editStudy.value = idd;
+    editStudy.value          = idd;
 
     console.log("wth....", idd, editStudy.value);
 
@@ -67,7 +68,7 @@ const showModalForEdit = (idd) => {
 };
 
 const closeModal = () => {
-    modalIsVisible.value = false;
+    modalIsVisible.value     = false;
     editModalIsVisible.value = false;
     form.reset();
     editStudy.reset();
@@ -88,14 +89,15 @@ const createProject = () => {
 const opt = ["dsfgds", "dkkks", "dsfgg"];
 
 const cities = ref([
-    { name: "New York", code: "NY" },
-    { name: "Rome", code: "RM" },
-    { name: "London", code: "LDN" },
-    { name: "Istanbul", code: "IST" },
-    { name: "Paris", code: "PRS" },
+    { name: 'New York', code: 'NY' },
+    { name: 'Rome', code: 'RM' },
+    { name: 'London', code: 'LDN' },
+    { name: 'Istanbul', code: 'IST' },
+    { name: 'Paris', code: 'PRS' }
 ]);
+const selectedCities = ref([]);
+const selectedCity = ref();
 
-const selectedCities = ref();
 </script>
 
 <template>
@@ -116,16 +118,14 @@ const selectedCities = ref();
                             <h4 class="text-[24px] text-black">Preset type:</h4>
                         </td>
                         <td>
+
                             <div class="card flex justify-center">
-                                <MultiSelect
-                                    display="chip"
-                                    v-model="selectedCities"
-                                    :options="cities"
-                                    optionLabel="name"
-                                    filter
-                                    placeholder="Select Cities"
-                                    class="w-full md:w-80"
-                                />
+                                <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
+                            </div>
+
+                            <div class="card flex justify-center">
+                                <MultiSelect v-model="selectedCities" :options="cities" optionLabel="name" filter placeholder="Select Cities"
+                                             :maxSelectedLabels="3" class="w-full md:w-80" />
                             </div>
                         </td>
                     </tr>
