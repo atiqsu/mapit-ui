@@ -1,9 +1,5 @@
 <script setup>
-import UpdateProfileInformationForm from "@/Pages/Profile/Partials/UpdateProfileInformationForm.vue";
-import DeleteUserForm from "@/Pages/Profile/Partials/DeleteUserForm.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import UpdatePasswordForm from "@/Pages/Profile/Partials/UpdatePasswordForm.vue";
-import DangerButton from "@/Components/DangerButton.vue";
 import AddNewButton from "@/Components/AddNewButton.vue";
 import { nextTick, ref } from "vue";
 import TextInput from "@/Components/TextInput.vue";
@@ -126,11 +122,10 @@ const createProject = () => {
                         <td class="p-4">{{ study.name }}</td>
                         <td class="p-4">{{ study.code }}</td>
                         <td class="p-4 flex items-center gap-3">
-                            <ActionBtnEdit @click="showModalForEdit(study)">
-                            </ActionBtnEdit>
-                            <ActionBtnDelete @click="showModalForAddNew"
-                                ><i class="pi pi-trash"></i
-                            ></ActionBtnDelete>
+                            <ActionBtnEdit @click="showModalForEdit(study)"></ActionBtnEdit>
+                            <ActionBtnDelete @click="showModalForAddNew">
+                                <i class="pi pi-trash"></i>
+                            </ActionBtnDelete>
                         </td>
                     </tr>
                 </tbody>
