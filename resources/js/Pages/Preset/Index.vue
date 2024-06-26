@@ -1,9 +1,9 @@
 <script setup>
-import {nextTick, ref} from "vue";
-import {useForm} from "@inertiajs/vue3";
+import { nextTick, ref } from "vue";
+import { useForm } from "@inertiajs/vue3";
 import MultiSelect from "primevue/multiselect";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import Select from 'primevue/select';
+import Select from "primevue/select";
 
 const props = defineProps({
     studies: {
@@ -15,26 +15,17 @@ const props = defineProps({
         default: () => [],
     },
     preset: {
-        type: Array,
+        type: Object,
         default: () => {
-            return {
-                types_option: ["abc", "b22", "c55", "f55"],
-                name: "my name",
-                cols_option: ["abc", "b22", "c55", "f55"],
-                cols_val: ["c55", "f55"],
-                filter_option: ["abc", "b22", "c55", "f55"],
-                sheets_option: {
-                    sheet1: ["col1", "col2", "col3"],
-                    sheet2: ["col19", "col2", "col31"],
-                    sheet3: ["col1", "col22", "col36"],
-                    sheet4: ["col1", "col23", "col3"],
-                    sheet5: ["col1", "col0", "col3"],
-                    sheet6: ["filed", "var", "sdtm"],
-                },
-            };
+            return {};
         },
     },
 });
+
+const selectedPresetTypes = ref([]);
+const selectedPreserveCols = ref([]);
+const selectedFilterOption = ref([]);
+const selectedSheetRelation = ref([]);
 
 const form = useForm({
     name: "",
@@ -47,10 +38,26 @@ const editStudy = useForm({
     code: "",
 });
 
-const tblCols            = ["ID", "name", "Code", "Actions"];
-const modalIsVisible     = ref(false);
+const preset = ref({
+    types_option: ["abc", "b22", "c55", "f55", "hgvui"],
+    name: "my name",
+    cols_option: ["abc", "b22", "c55", "f55"],
+    cols_val: ["c55", "f55"],
+    filter_option: ["abc", "b22", "c55", "f55"],
+    sheets_option: {
+        sheet1: ["col1", "col2", "col3"],
+        sheet2: ["col19", "col2", "col31"],
+        sheet3: ["col1", "col22", "col36"],
+        sheet4: ["col1", "col23", "col3"],
+        sheet5: ["col1", "col0", "col3"],
+        sheet6: ["filed", "var", "sdtm"],
+    },
+});
+
+const tblCols = ["ID", "name", "Code", "Actions"];
+const modalIsVisible = ref(false);
 const editModalIsVisible = ref(false);
-const nameInputFocus     = ref("");
+const nameInputFocus = ref("");
 
 const showModalForAddNew = () => {
     modalIsVisible.value = true;
@@ -60,7 +67,7 @@ const showModalForAddNew = () => {
 
 const showModalForEdit = (idd) => {
     editModalIsVisible.value = true;
-    editStudy.value          = idd;
+    editStudy.value = idd;
 
     console.log("wth....", idd, editStudy.value);
 
@@ -68,7 +75,7 @@ const showModalForEdit = (idd) => {
 };
 
 const closeModal = () => {
-    modalIsVisible.value     = false;
+    modalIsVisible.value = false;
     editModalIsVisible.value = false;
     form.reset();
     editStudy.reset();
@@ -85,19 +92,6 @@ const createProject = () => {
         onFinish: () => form.reset(),
     });
 };
-
-const opt = ["dsfgds", "dkkks", "dsfgg"];
-
-const cities = ref([
-    { name: 'New York', code: 'NY' },
-    { name: 'Rome', code: 'RM' },
-    { name: 'London', code: 'LDN' },
-    { name: 'Istanbul', code: 'IST' },
-    { name: 'Paris', code: 'PRS' }
-]);
-const selectedCities = ref([]);
-const selectedCity = ref();
-
 </script>
 
 <template>
@@ -112,20 +106,87 @@ const selectedCity = ref();
 
         <template #content>
             <div class="border p-10 rounded-xl">
-                <table>
-                    <tr>
-                        <td>
+                <table class="space-y-7">
+                    <tr class="flex items-center gap-5">
+                        <td class="text-right w-[200px]">
                             <h4 class="text-[24px] text-black">Preset type:</h4>
                         </td>
-                        <td>
-
-                            <div class="card flex justify-center">
-                                <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
+                        <td class="flex items-center gap-4">
+                            <div class="card bg-white flex justify-center">
+                                <MultiSelect
+                                    v-model="selectedPresetTypes"
+                                    multiselect.disabled.background
+                                    :options="preset.types_option"
+                                    filter
+                                    placeholder="Select Preset Types"
+                                    :maxSelectedLabels="3"
+                                    class="w-full md:w-52 bg-white"
+                                />
                             </div>
-
-                            <div class="card flex justify-center">
-                                <MultiSelect v-model="selectedCities" :options="cities" optionLabel="name" filter placeholder="Select Cities"
-                                             :maxSelectedLabels="3" class="w-full md:w-80" />
+                            <input
+                                class="w-full md:w-52 rounded border-[#e5e7eb] hover:border-[#94a3b8]"
+                                :value="preset.name"
+                                type="text"
+                            />
+                        </td>
+                    </tr>
+                    <tr class="flex items-center gap-5">
+                        <td class="text-right w-[200px]">
+                            <h4 class="text-[24px] text-black">
+                                Preserve col:
+                            </h4>
+                        </td>
+                        <td>
+                            <div class="card bg-white flex justify-center">
+                                <MultiSelect
+                                    v-model="selectedPreserveCols"
+                                    multiselect.disabled.background
+                                    :options="preset.cols_option"
+                                    filter
+                                    placeholder="Select Preserve col"
+                                    :maxSelectedLabels="3"
+                                    class="w-full md:w-52 bg-white"
+                                />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="flex items-center gap-5">
+                        <td class="text-right w-[200px]">
+                            <h4 class="text-[24px] text-black">Filter:</h4>
+                        </td>
+                        <td>
+                            <div class="card bg-white flex justify-center">
+                                <MultiSelect
+                                    v-model="selectedFilterOption"
+                                    multiselect.disabled.background
+                                    :options="preset.filter_option"
+                                    optionLabel="name"
+                                    filter
+                                    placeholder="Select Filter Option"
+                                    :maxSelectedLabels="3"
+                                    class="w-full md:w-52 bg-white"
+                                />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="flex items-center gap-5">
+                        <td class="text-right w-[200px]">
+                            <h4 class="text-[24px] text-black">
+                                Sheet Relation:
+                            </h4>
+                        </td>
+                        <td>
+                            <div class="card bg-white flex justify-center">
+                                <MultiSelect
+                                    v-model="selectedSheetRelation"
+                                    multiselect.disabled.background
+                                    :options="preset.sheets_option.sheet1"
+                                    optionLabel="name"
+                                    filter
+                                    placeholder="Select Filter Option"
+                                    :maxSelectedLabels="3"
+                                    class="w-full md:w-52 bg-white"
+                                />
                             </div>
                         </td>
                     </tr>

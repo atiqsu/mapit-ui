@@ -199,7 +199,7 @@ const activeLinkStyle = computed(
                     </div>
                 </nav>
 
-                <div class="w-full bg-white ps-[256px]">
+                <div class="w-full min-h-[100vh] bg-white ps-[256px]">
                     <!-- Top Header -->
                     <div
                         class="bg-white w-full shadow border-b h-[fit-content] py-5 text-black"
@@ -323,7 +323,7 @@ const activeLinkStyle = computed(
                     </div>
 
                     <!-- Page Content -->
-                    <main class="bg-white p-6">
+                    <main class="bg-white p-6 ">
                         <div>
                             <slot name="header" />
 
