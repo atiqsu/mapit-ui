@@ -85,9 +85,6 @@ const createProject = () => {
         onFinish: () => form.reset(),
     });
 };
-
-
-
 </script>
 
 <template>
@@ -128,7 +125,7 @@ const createProject = () => {
                         <td class="p-4 flex items-center gap-3">
                             <ActionBtnEdit @click="showModalForEdit(study)" />
 
-                            <ActionBtnActive  />
+                            <ActionBtnActive status="1" />
                         </td>
                     </tr>
                 </tbody>
@@ -276,6 +273,42 @@ const createProject = () => {
                         />
 
                         <InputError :message="form.errors.code" class="mt-2" />
+                    </div>
+                    <div class="mt-6">
+                        <label class="text-sm font-semibold">
+                            User access details
+                        </label>
+                        <table id="stbl" class="w-full mt-3 rounded-lg">
+                            <tr>
+                                <th
+                                    class="text-left text-[12px] p-3 bg-[#f8f9fb]"
+                                >
+                                    User
+                                </th>
+                                <th
+                                    class="text-left text-[12px] p-3 bg-[#f8f9fb]"
+                                >
+                                    Access
+                                </th>
+                            </tr>
+
+                            <tr v-for="user in users" :key="user.id">
+                                <td class="text-[12px] p-3">
+                                    {{ user.name }}
+                                </td>
+                                <td class="p-3 flex items-center gap-2">
+                                    <input
+                                        type="checkbox"
+                                        v-model="user.hasAccess"
+                                        name="hasAccess"
+                                        id="hasAccess1"
+                                    />
+                                    <label class="text-[12px]" for="hasAccess1">
+                                        Has Access
+                                    </label>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
                 <div class="bg-[#f8f9fb] p-6 flex items-center justify-end">
