@@ -21,6 +21,7 @@
         "vue-tsc": "^1.8.27"
     },
     "dependencies": {
-        "primeicons": "^7.0.0"
+        "primeicons": "^7.0.0",
+        "primevue": "^4.0.0-rc.2"
     }
 }
