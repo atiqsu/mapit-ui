@@ -216,11 +216,17 @@ const createProject = () => {
                         Cancel
                     </CancelButton>
 
-                    <SubmitButton> Save </SubmitButton>
-                    
+                    <SubmitButton
+                        :class="{ 'opacity-25': form.processing }"
+                        :disabled="form.processing"
+                    >
+                        Save
+                    </SubmitButton>
+
                 </div>
             </div>
         </Modal>
+
 
         <Modal :show="editModalIsVisible" @close="closeModal">
             <div class="p-6">
