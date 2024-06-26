@@ -6,6 +6,17 @@ const model = defineModel({
     required: true,
 });
 
+const props = defineProps({
+    disabled: {
+        type: Boolean,
+        default: false,
+    },
+    readonly: {
+        type: Boolean,
+        default: false
+    }
+});
+
 const input = ref(null);
 
 onMounted(() => {
@@ -19,8 +30,10 @@ defineExpose({ focus: () => input.value.focus() });
 
 <template>
     <input
-        class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
+        class="block w-full focus:outline-none focus:ring focus:ring-[#4790FC] mt-3 rounded-lg bg-[#f8f9fb] border-0 p-4"
         v-model="model"
         ref="input"
+        :disabled="props.disabled"
+        :readonly="props.readonly"
     />
 </template>
