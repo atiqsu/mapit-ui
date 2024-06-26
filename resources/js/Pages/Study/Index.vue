@@ -102,17 +102,10 @@ const createProject = () => {
         </template>
 
         <template #content>
-            <table
-                class="w-full border border-[#f3f3f7] rounded-lg"
-                id="usertbl"
-            >
+            <table class="w-full border border-[#f3f3f7] rounded-lg" id="usertbl">
                 <thead>
                     <tr class="bg-[#f1f4f9]">
-                        <th
-                            v-for="col in tblCols"
-                            :key="col"
-                            class="text-left p-4"
-                        >
+                        <th v-for="col in tblCols" :key="col" class="text-left p-4">
                             {{ col }}
                         </th>
                     </tr>
@@ -233,41 +226,21 @@ const createProject = () => {
                         Update project info
                     </h2>
 
-                    <p
-                        class="mt-1 text-sm text-gray-600 dark:text-gray-400"
-                    ></p>
+                    <p class="mt-1 text-sm text-gray-600 dark:text-gray-400"></p>
 
                     <div class="mt-6">
-                        <InputLabel
-                            for="name"
-                            value="Study name"
-                            class="sr-only"
-                        />
+                        <InputLabel for="name" value="Study name" class="sr-only" />
 
-                        <TextInput
-                            id="name"
-                            ref="nameInputFocus"
-                            v-model="form.name"
-                            class=""
-                            placeholder="Study name..."
-                        />
+                        <TextInput id="name" ref="nameInputFocus" v-model="form.name" class=""
+                            placeholder="Study name..." />
 
                         <InputError :message="form.errors.name" class="mt-2" />
                     </div>
 
                     <div class="mt-6">
-                        <InputLabel
-                            for="code"
-                            value="Study code"
-                            class="sr-only"
-                        />
+                        <InputLabel for="code" value="Study code" class="sr-only" />
 
-                        <TextInput
-                            id="code"
-                            v-model="form.code"
-                            class=""
-                            placeholder="Study code..."
-                        />
+                        <TextInput id="code" v-model="form.code" class="" placeholder="Study code..." />
 
                         <InputError :message="form.errors.code" class="mt-2" />
                     </div>
