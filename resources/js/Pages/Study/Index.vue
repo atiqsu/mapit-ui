@@ -4,13 +4,11 @@ import AddNewButton from "@/Components/AddNewButton.vue";
 import { nextTick, ref } from "vue";
 import TextInput from "@/Components/TextInput.vue";
 import Modal from "@/Components/Modal.vue";
-import SecondaryButton from "@/Components/SecondaryButton.vue";
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import { useForm } from "@inertiajs/vue3";
 import SubmitButton from "@/Components/SubmitButton.vue";
 import ActionBtnEdit from "@/Components/ActionBtnEdit.vue";
-import ActionBtnDelete from "@/Components/ActionBtnDelete.vue";
 import userModalIcon from "../../../images/userModalIcon.svg";
 import CancelButton from "@/Components/CancelButton.vue";
 import ActionBtnActive from "@/Components/ActionBtnActive.vue";
@@ -304,9 +302,9 @@ const createProject = () => {
                     </div>
                 </div>
                 <div class="bg-[#f8f9fb] p-6 flex items-center justify-end">
-                    <SecondaryButton @click="closeModal">
+                    <CancelButton @click="closeModal">
                         Cancel
-                    </SecondaryButton>
+                    </CancelButton>
 
                     <SubmitButton
                         :class="{ 'opacity-25': form.processing }"
