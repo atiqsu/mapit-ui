@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StudyCreateRequest;
 use App\Models\Study;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,7 +17,10 @@ class StudyController extends Controller
 
     public function index(): Response
     {
-        return Inertia::render('Study/Index', ['studies' => Study::all()]);
+        return Inertia::render('Study/Index', [
+            'studies' => Study::all(),
+            'users' => User::select('id', 'name')->orderby('name', 'asc')->get()]
+        );
     }
 
 

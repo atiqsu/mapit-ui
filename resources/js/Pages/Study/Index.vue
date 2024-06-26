@@ -16,9 +16,14 @@ import SubmitButton from "@/Components/SubmitButton.vue";
 import ActionBtnEdit from "@/Components/ActionBtnEdit.vue";
 import ActionBtnDelete from "@/Components/ActionBtnDelete.vue";
 import userModalIcon from "../../../images/userModalIcon.svg";
+import CancelButton from '@/Components/CancelButton.vue';
 
 defineProps({
     studies: {
+        type: Array,
+        default: () => [],
+    },
+    users: {
         type: Array,
         default: () => [],
     },
@@ -130,6 +135,9 @@ const createProject = () => {
                     </tr>
                 </tbody>
             </table>
+
+            <pre>{{studies}}</pre>
+            {{users}}
         </template>
 
         <Modal :show="modalIsVisible" @close="closeModal">
@@ -138,99 +146,78 @@ const createProject = () => {
                     <div class="text-center mb-6">
                         <img class="mx-auto mb-5" :src="userModalIcon" alt="" />
                         <h3 class="text-[20px] font-medium text-[#1C1E38]">
-                            Update project info
+                            Create project
                         </h3>
                         <p class="text-sm text-[#5E606E]">
-                            Update project details
+                            project details
                         </p>
                     </div>
                     <div class="space-y-6">
                         <div>
-                            <label class="text-sm font-semibold" for="sname"
-                                >Study Name</label
-                            >
+                            <label class="text-sm font-semibold" for="sname">Study Name</label>
                             <input
                                 class="block w-full focus:outline-none focus:ring focus:ring-[#4790FC] mt-3 rounded-lg bg-[#f8f9fb] border-0 p-4"
                                 type="text"
+                                v-model="form.name"
                                 id="sname"
                                 name="sname"
                                 placeholder="Dummy"
                             />
                         </div>
                         <div>
-                            <label class="text-sm font-semibold" for="scode"
-                                >Study Code</label
-                            >
+                            <label class="text-sm font-semibold" for="scode">
+                                Study Code
+                            </label>
                             <input
                                 class="block w-full focus:outline-none focus:ring focus:ring-[#4790FC] mt-3 rounded-lg bg-[#f8f9fb] border-0 p-4"
                                 type="text"
+                                v-model="form.code"
                                 id="scode"
                                 name="scode"
                                 placeholder="SE- 2345"
                             />
                         </div>
                         <div>
-                            <label class="text-sm font-semibold"
-                                >User access details</label
-                            >
+                            <label class="text-sm font-semibold">User access details</label>
                             <table id="stbl" class="w-full mt-3 rounded-lg">
                                 <tr>
-                                    <th
-                                        class="text-left text-[12px] p-3 bg-[#f8f9fb]"
-                                    >
+                                    <th class="text-left text-[12px] p-3 bg-[#f8f9fb]" >
                                         User
                                     </th>
-                                    <th
-                                        class="text-left text-[12px] p-3 bg-[#f8f9fb]"
-                                    >
+                                    <th class="text-left text-[12px] p-3 bg-[#f8f9fb]" >
                                         Access
                                     </th>
                                 </tr>
-                                <tr>
-                                    <td class="text-[12px] p-3">Test User</td>
+
+                                <tr v-for="user in users" :key="user.id">
+                                    <td class="text-[12px] p-3">{{ user.name }}</td>
                                     <td class="p-3 flex items-center gap-2">
                                         <input
                                             type="checkbox"
+                                            v-model="user.hasAccess"
                                             name="hasAccess"
                                             id="hasAccess1"
                                         />
                                         <label
                                             class="text-[12px]"
                                             for="hasAccess1"
-                                            >HAs Access
+                                        >Has Access
                                         </label>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td class="text-[12px] p-3">Test User</td>
-                                    <td class="p-3 flex items-center gap-2">
-                                        <input
-                                            type="checkbox"
-                                            name="hasAccess"
-                                            id="hasAccess2"
-                                        />
-                                        <label
-                                            class="text-[12px]"
-                                            for="hasAccess2"
-                                            >HAs Access
-                                        </label>
-                                    </td>
-                                </tr>
+
                             </table>
                         </div>
                     </div>
                 </div>
                 <div class="bg-[#F8F9FB] p-6 flex items-center justify-end">
-                    <button
-                        class="border border-[#E9E9EC] bg-white py-2 px-3 font-medium text-[12px] rounded-xl mr-4"
-                    >
-                        Cencel
-                    </button>
-                    <button
-                        class="bg-[#4790FC] hover:opacity-[0.8] duration-300 py-2 px-3 font-medium text-[12px] rounded-xl border border-[#E9E9EC] text-white"
-                    >
-                        Save
-                    </button>
+
+                    <CancelButton @click="closeModal">
+                        Cancel
+                    </CancelButton>
+
+                    <SubmitButton> Save </SubmitButton>
+                    
                 </div>
             </div>
         </Modal>
