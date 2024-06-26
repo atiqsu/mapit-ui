@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StudyCreateRequest extends FormRequest
+class StudyUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,6 @@ class StudyCreateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'max:100'],
-            'code' => ['required', 'max:100'],
             'users' => ['nullable', 'array'],
         ];
     }

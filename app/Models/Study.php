@@ -13,6 +13,7 @@ class Study extends Model
     protected $table = 'studies';
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
+    protected $fillable = ['name', 'code', 'is_active'];
 
 
 

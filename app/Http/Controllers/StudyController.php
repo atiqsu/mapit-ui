@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StudyCreateRequest;
+use App\Http\Requests\StudyUpdateRequest;
 use App\Models\Study;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -26,11 +27,31 @@ class StudyController extends Controller
 
     public function store(StudyCreateRequest $request): RedirectResponse
     {
-        //Study::create($request->validated());
+        $data =  $request->all();
 
-        dd($request->validated());
+        $study = Study::create($request->validated());
+
+        $study->users()->sync($data['users']);
 
         return Redirect::route('study.index')->with('success', 'Study created.');
+    }
+
+    public function update(StudyUpdateRequest $request, $id ): RedirectResponse
+    {
+        $study = Study::findOrFail($id);
+
+        if(empty($study)) {
+
+            return Redirect::route('study.index')->with('error', 'Failed....');
+        }
+
+        $data =  $request->validated();
+
+        $study->update(['name' => $data['name']]);
+
+        $study->users()->sync($data['users']);
+
+        return Redirect::route('study.index')->with('success', 'Study updated successfully.');
     }
 
     public function edit(Request $request, Study $study): JsonResponse
@@ -39,7 +60,6 @@ class StudyController extends Controller
         $dt['req'] = $request->all();
         $dt['ss'] = $request->pa();
         $dt['st'] = $study;
-
 
         return response()->json($dt);
     }

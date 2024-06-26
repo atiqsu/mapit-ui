@@ -89,11 +89,9 @@ const createProject = () => {
 const opt = ["dsfgds", "dkkks", "dsfgg"];
 
 const cities = ref([
-    { name: 'New York', code: 'NY' },
-    { name: 'Rome', code: 'RM' },
-    { name: 'London', code: 'LDN' },
-    { name: 'Istanbul', code: 'IST' },
-    { name: 'Paris', code: 'PRS' }
+    "dfhgfgh",
+    "jkjk",
+    "wew"
 ]);
 const selectedCities = ref([]);
 const selectedCity = ref();
@@ -120,11 +118,14 @@ const selectedCity = ref();
                         <td>
 
                             <div class="card flex justify-center">
-                                <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
+                                <Select v-model="selectedCity"
+                                        :options="cities"
+                                        placeholder="Select a City"
+                                        class="w-full md:w-56" />
                             </div>
 
                             <div class="card flex justify-center">
-                                <MultiSelect v-model="selectedCities" :options="cities" optionLabel="name" filter placeholder="Select Cities"
+                                <MultiSelect v-model="selectedCities" :options="cities"  filter placeholder="Select Cities"
                                              :maxSelectedLabels="3" class="w-full md:w-80" />
                             </div>
                         </td>
