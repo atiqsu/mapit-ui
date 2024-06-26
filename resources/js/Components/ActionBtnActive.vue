@@ -1,5 +1,7 @@
 <script setup>
-defineProps({
+import { defineProps } from 'vue';
+
+const props = defineProps({
     status: {
         type: String,
         default: '1',  // 0 | 1
@@ -8,11 +10,9 @@ defineProps({
 </script>
 
 <template>
-    <button class="">
-
-        <i class="pi pi-trash"></i>
-        <i class="pi pi-pen-to-square text-[#60a5fa] text-[16px]"></i>
-
+    <button class="text-[#43A37E]">
+        <i v-if="status == '1'" class="pi pi-check-circle"></i>
+        <i v-else class="pi pi-circle"></i>
         <slot />
     </button>
 </template>

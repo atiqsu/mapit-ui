@@ -12,8 +12,8 @@ import SubmitButton from "@/Components/SubmitButton.vue";
 import ActionBtnEdit from "@/Components/ActionBtnEdit.vue";
 import ActionBtnDelete from "@/Components/ActionBtnDelete.vue";
 import userModalIcon from "../../../images/userModalIcon.svg";
-import CancelButton from '@/Components/CancelButton.vue';
-import ActionBtnActive from '@/Components/ActionBtnActive.vue';
+import CancelButton from "@/Components/CancelButton.vue";
+import ActionBtnActive from "@/Components/ActionBtnActive.vue";
 
 defineProps({
     studies: {
@@ -85,6 +85,9 @@ const createProject = () => {
         onFinish: () => form.reset(),
     });
 };
+
+
+
 </script>
 
 <template>
@@ -102,10 +105,17 @@ const createProject = () => {
         </template>
 
         <template #content>
-            <table class="w-full border border-[#f3f3f7] rounded-lg" id="usertbl">
+            <table
+                class="w-full border border-[#f3f3f7] rounded-lg"
+                id="usertbl"
+            >
                 <thead>
                     <tr class="bg-[#f1f4f9]">
-                        <th v-for="col in tblCols" :key="col" class="text-left p-4">
+                        <th
+                            v-for="col in tblCols"
+                            :key="col"
+                            class="text-left p-4"
+                        >
                             {{ col }}
                         </th>
                     </tr>
@@ -116,17 +126,16 @@ const createProject = () => {
                         <td class="p-4">{{ study.name }}</td>
                         <td class="p-4">{{ study.code }}</td>
                         <td class="p-4 flex items-center gap-3">
-                            <ActionBtnEdit @click="showModalForEdit(study)"></ActionBtnEdit>
+                            <ActionBtnEdit @click="showModalForEdit(study)" />
 
-                            <ActionBtnActive status="0" />
-                            
+                            <ActionBtnActive  />
                         </td>
                     </tr>
                 </tbody>
             </table>
 
-            <pre>{{studies}}</pre>
-            {{users}}
+            <pre>{{ studies }}</pre>
+            {{ users }}
         </template>
 
         <!-- Create New Study modal Here -->
@@ -138,13 +147,13 @@ const createProject = () => {
                         <h3 class="text-[20px] font-medium text-[#1C1E38]">
                             Create project
                         </h3>
-                        <p class="text-sm text-[#5E606E]">
-                            project details
-                        </p>
+                        <p class="text-sm text-[#5E606E]">project details</p>
                     </div>
                     <div class="space-y-6">
                         <div>
-                            <label class="text-sm font-semibold" for="sname">Study Name</label>
+                            <label class="text-sm font-semibold" for="sname">
+                                Study Name
+                            </label>
                             <input
                                 class="block w-full focus:outline-none focus:ring focus:ring-[#4790FC] mt-3 rounded-lg bg-[#f8f9fb] border-0 p-4"
                                 type="text"
@@ -168,19 +177,27 @@ const createProject = () => {
                             />
                         </div>
                         <div>
-                            <label class="text-sm font-semibold">User access details</label>
+                            <label class="text-sm font-semibold">
+                                User access details
+                            </label>
                             <table id="stbl" class="w-full mt-3 rounded-lg">
                                 <tr>
-                                    <th class="text-left text-[12px] p-3 bg-[#f8f9fb]" >
+                                    <th
+                                        class="text-left text-[12px] p-3 bg-[#f8f9fb]"
+                                    >
                                         User
                                     </th>
-                                    <th class="text-left text-[12px] p-3 bg-[#f8f9fb]" >
+                                    <th
+                                        class="text-left text-[12px] p-3 bg-[#f8f9fb]"
+                                    >
                                         Access
                                     </th>
                                 </tr>
 
                                 <tr v-for="user in users" :key="user.id">
-                                    <td class="text-[12px] p-3">{{ user.name }}</td>
+                                    <td class="text-[12px] p-3">
+                                        {{ user.name }}
+                                    </td>
                                     <td class="p-3 flex items-center gap-2">
                                         <input
                                             type="checkbox"
@@ -191,20 +208,17 @@ const createProject = () => {
                                         <label
                                             class="text-[12px]"
                                             for="hasAccess1"
-                                        >Has Access
+                                        >
+                                            Has Access
                                         </label>
                                     </td>
                                 </tr>
-
                             </table>
                         </div>
                     </div>
                 </div>
                 <div class="bg-[#F8F9FB] p-6 flex items-center justify-end">
-
-                    <CancelButton @click="closeModal">
-                        Cancel
-                    </CancelButton>
+                    <CancelButton @click="closeModal"> Cancel </CancelButton>
 
                     <SubmitButton
                         :class="{ 'opacity-25': form.processing }"
@@ -212,7 +226,6 @@ const createProject = () => {
                     >
                         Save
                     </SubmitButton>
-
                 </div>
             </div>
         </Modal>
@@ -226,21 +239,41 @@ const createProject = () => {
                         Update project info
                     </h2>
 
-                    <p class="mt-1 text-sm text-gray-600 dark:text-gray-400"></p>
+                    <p
+                        class="mt-1 text-sm text-gray-600 dark:text-gray-400"
+                    ></p>
 
                     <div class="mt-6">
-                        <InputLabel for="name" value="Study name" class="sr-only" />
+                        <InputLabel
+                            for="name"
+                            value="Study name"
+                            class="sr-only"
+                        />
 
-                        <TextInput id="name" ref="nameInputFocus" v-model="form.name" class=""
-                            placeholder="Study name..." />
+                        <TextInput
+                            id="name"
+                            ref="nameInputFocus"
+                            v-model="form.name"
+                            class=""
+                            placeholder="Study name..."
+                        />
 
                         <InputError :message="form.errors.name" class="mt-2" />
                     </div>
 
                     <div class="mt-6">
-                        <InputLabel for="code" value="Study code" class="sr-only" />
+                        <InputLabel
+                            for="code"
+                            value="Study code"
+                            class="sr-only"
+                        />
 
-                        <TextInput id="code" v-model="form.code" class="" placeholder="Study code..." />
+                        <TextInput
+                            id="code"
+                            v-model="form.code"
+                            class=""
+                            placeholder="Study code..."
+                        />
 
                         <InputError :message="form.errors.code" class="mt-2" />
                     </div>
