@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PresetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudyController;
 use Illuminate\Foundation\Application;
@@ -36,6 +37,11 @@ Route::middleware('auth')->group(function () {
     Route::get('study/edit/{studyId}', [StudyController::class, 'edit'])->name('studies.edit');
     Route::put('study/{studyId}', [StudyController::class, 'update'])->name('studies.update');
     Route::delete('study/{studyId}', [StudyController::class, 'destroy'])->name('studies.destroy');
+
+    /**
+     * Preset
+     */
+    Route::get('preset', [PresetController::class, 'index'])->name('preset.index');
 
 });
 
