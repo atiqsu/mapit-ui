@@ -140,7 +140,7 @@ const createProject = () => {
                             <div class="card bg-white flex justify-center">
                                 <MultiSelect
                                     v-model="selectedPreserveCols"
-                                    multiselect.disabled.background
+                                  
                                     :options="preset.cols_option"
                                     filter
                                     placeholder="Select Preserve col"
@@ -158,9 +158,9 @@ const createProject = () => {
                             <div class="card bg-white flex justify-center">
                                 <MultiSelect
                                     v-model="selectedFilterOption"
-                                    multiselect.disabled.background
+                                
                                     :options="preset.filter_option"
-                                    optionLabel="name"
+                                
                                     filter
                                     placeholder="Select Filter Option"
                                     :maxSelectedLabels="3"
@@ -179,9 +179,9 @@ const createProject = () => {
                             <div class="card bg-white flex justify-center">
                                 <MultiSelect
                                     v-model="selectedSheetRelation"
-                                    multiselect.disabled.background
-                                    :options="preset.sheets_option.sheet1"
-                                    optionLabel="name"
+                                 
+                                    :options="preset.sheets_option.key"
+                                 
                                     filter
                                     placeholder="Select Filter Option"
                                     :maxSelectedLabels="3"
