@@ -12,8 +12,9 @@ import ActionBtnEdit from "@/Components/ActionBtnEdit.vue";
 import userModalIcon from "../../../images/userModalIcon.svg";
 import CancelButton from "@/Components/CancelButton.vue";
 import ActionBtnActive from "@/Components/ActionBtnActive.vue";
+import {assignedUserIds} from '@/helper.js';
 
-defineProps({
+const props = defineProps({
     studies: {
         type: Array,
         default: () => [],
@@ -39,19 +40,44 @@ const tblCols = ["ID", "name", "Code", "Actions"];
 const modalIsVisible = ref(false);
 const editModalIsVisible = ref(false);
 const nameInputFocus = ref("");
+const assignedUsers = ref([]);
+
+assignedUsers.value = props.users;
+
+const populateAssignedUsers = (assigned) => {
+
+    assignedUsers.value.map(user => {
+
+        user.hasAccess = false;
+
+        if(assigned) {
+
+            const found = assigned.find(element => element.id === user.id);
+
+            if(found) {
+                user.hasAccess = true;
+            }
+        }
+    });
+};
+
+
 
 const showModalForAddNew = () => {
     modalIsVisible.value = true;
 
-    nextTick(() => nameInputFocus.value.focus());
+    //extTick(() => nameInputFocus.value.focus());
 };
 
-const showModalForEdit = (idd) => {
+const showModalForEdit = (std) => {
+
     editModalIsVisible.value = true;
-    editStudy.value = idd;
 
-    console.log("wth....", idd, editStudy.value);
+    editStudy.id = std.id;
+    editStudy.name = std.name;
+    editStudy.code = std.code;
 
+    populateAssignedUsers(std.users);
 
     //nextTick(() => nameInputFocus.value.focus());
 };
@@ -63,18 +89,47 @@ const closeModal = () => {
     editStudy.reset();
 };
 
+
 const createProject = () => {
     form.
         transform((data) => ({
             ...data,
-            users: data.remember ? 'on' : '',
-        })).post(route("studies.store"), {
+            users: assignedUserIds(props.users),
+        }))
+        .post(route("studies.store"), {
         preserveScroll: true,
         onSuccess: () => closeModal(),
         onError: () => nameInputFocus.value.focus(),
         onFinish: () => form.reset(),
     });
 };
+
+const updateProject = () => {
+
+    editStudy.
+        transform((data) => ({
+            ...data,
+            users: assignedUserIds(props.users)
+        }))
+        .put(route("studies.update",editStudy.id), {
+        preserveScroll: true,
+        onSuccess: () => closeModal(),
+        onError: () => {
+
+        },
+        onFinish: () => editStudy.reset(),
+    });
+
+}
+
+const toggleAssigned = (user) => {
+
+    if (assignedUsers.value.includes(user.id)) {
+        assignedUsers.value = assignedUsers.value.filter(id => id !== user.id);
+    } else {
+        assignedUsers.value.push(user.id);
+    }
+}
 </script>
 
 <template>
@@ -121,8 +176,11 @@ const createProject = () => {
                 </tbody>
             </table>
 
-            <pre>{{ studies }}</pre>
-            {{ users }}
+
+<!--            <pre>{{ assignedUserIds(assignedUsers) }}</pre>-->
+<!--            <pre>{{ assignedUsers }}</pre>-->
+
+
         </template>
 
         <!-- Create New Study modal Here -->
@@ -205,13 +263,15 @@ const createProject = () => {
                     </div>
                 </div>
                 <div class="bg-[#F8F9FB] p-6 flex items-center justify-end">
+
                     <CancelButton @click="closeModal"> Cancel </CancelButton>
 
                     <SubmitButton
                         :class="{ 'opacity-25': form.processing }"
                         :disabled="form.processing"
+                        @click="createProject"
                     >
-                        Save
+                        Create
                     </SubmitButton>
                 </div>
             </div>
@@ -226,9 +286,7 @@ const createProject = () => {
                         Update project info
                     </h2>
 
-                    <p
-                        class="mt-1 text-sm text-gray-600 dark:text-gray-400"
-                    ></p>
+                    <p class="mt-1 text-sm text-gray-600 dark:text-gray-400"></p>
 
                     <div class="mt-6">
                         <InputLabel
@@ -240,12 +298,12 @@ const createProject = () => {
                         <TextInput
                             id="name"
                             ref="nameInputFocus"
-                            v-model="form.name"
+                            v-model="editStudy.name"
                             class=""
                             placeholder="Study name..."
                         />
 
-                        <InputError :message="form.errors.name" class="mt-2" />
+                        <InputError :message="editStudy.errors.name" class="mt-2" />
                     </div>
 
                     <div class="mt-6">
@@ -257,12 +315,13 @@ const createProject = () => {
 
                         <TextInput
                             id="code"
-                            v-model="form.code"
-                            class=""
+                            v-model="editStudy.code"
+                            :readonly="true"
+                            :disabled="true"
                             placeholder="Study code..."
                         />
 
-                        <InputError :message="form.errors.code" class="mt-2" />
+                        <InputError :message="editStudy.errors.code" class="mt-2" />
                     </div>
                     <div class="mt-6">
                         <label class="text-sm font-semibold">
@@ -270,28 +329,23 @@ const createProject = () => {
                         </label>
                         <table id="stbl" class="w-full mt-3 rounded-lg">
                             <tr>
-                                <th
-                                    class="text-left text-[12px] p-3 bg-[#f8f9fb]"
-                                >
+                                <th class="text-left text-[12px] p-3 bg-[#f8f9fb]" >
                                     User
                                 </th>
-                                <th
-                                    class="text-left text-[12px] p-3 bg-[#f8f9fb]"
-                                >
+                                <th class="text-left text-[12px] p-3 bg-[#f8f9fb]" >
                                     Access
                                 </th>
                             </tr>
 
-                            <tr v-for="user in users" :key="user.id">
+                            <tr v-for="user in assignedUsers" :key="user.id">
                                 <td class="text-[12px] p-3">
                                     {{ user.name }}
                                 </td>
                                 <td class="p-3 flex items-center gap-2">
                                     <input
                                         type="checkbox"
+                                        :value="user.id"
                                         v-model="user.hasAccess"
-                                        name="hasAccess"
-                                        id="hasAccess1"
                                     />
                                     <label class="text-[12px]" for="hasAccess1">
                                         Has Access
@@ -309,13 +363,14 @@ const createProject = () => {
                     <SubmitButton
                         :class="{ 'opacity-25': form.processing }"
                         :disabled="form.processing"
-                        @click="createProject"
+                        @click="updateProject"
                     >
-                        Create
+                        Save
                     </SubmitButton>
                 </div>
             </div>
         </Modal>
+
     </AuthenticatedLayout>
 </template>
 
