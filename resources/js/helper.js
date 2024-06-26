@@ -1,4 +1,2 @@
 
-export const filterAndMapUserId = (users) => {
-    users.filter()
-}
+export const assignedUserIds = users => users.filter(user => user.hasAccess ).map(user => user.id);
