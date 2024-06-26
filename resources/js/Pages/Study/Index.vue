@@ -132,6 +132,7 @@ const createProject = () => {
             </table>
         </template>
 
+        <!-- Create New Study modal Here -->
         <Modal :show="modalIsVisible" @close="closeModal">
             <div class="rounded-2xl">
                 <div class="p-6 pt-10 bg-white">
@@ -235,44 +236,55 @@ const createProject = () => {
             </div>
         </Modal>
 
+        <!-- Edit on table modal Here -->
         <Modal :show="editModalIsVisible" @close="closeModal">
-            <div class="p-6">
-                <h2
-                    class="text-lg font-medium text-gray-900 dark:text-gray-100"
-                >
-                    Update project info
-                </h2>
+            <div>
+                <div class="p-6 pt-10 bg-white text-black">
+                    <img class="mx-auto mb-4" :src="userModalIcon" alt="" />
+                    <h2 class="text-lg font-medium text-center">
+                        Update project info
+                    </h2>
 
-                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400"></p>
+                    <p
+                        class="mt-1 text-sm text-gray-600 dark:text-gray-400"
+                    ></p>
 
-                <div class="mt-6">
-                    <InputLabel for="name" value="Study name" class="sr-only" />
+                    <div class="mt-6">
+                        <InputLabel
+                            for="name"
+                            value="Study name"
+                            class="sr-only"
+                        />
 
-                    <TextInput
-                        id="name"
-                        ref="nameInputFocus"
-                        v-model="form.name"
-                        class="mt-1 block w-3/4"
-                        placeholder="Study name..."
-                    />
+                        <TextInput
+                            id="name"
+                            ref="nameInputFocus"
+                            v-model="form.name"
+                            class=""
+                            placeholder="Study name..."
+                        />
 
-                    <InputError :message="form.errors.name" class="mt-2" />
+                        <InputError :message="form.errors.name" class="mt-2" />
+                    </div>
+
+                    <div class="mt-6">
+                        <InputLabel
+                            for="code"
+                            value="Study code"
+                            class="sr-only"
+                        />
+
+                        <TextInput
+                            id="code"
+                            v-model="form.code"
+                            class=""
+                            placeholder="Study code..."
+                        />
+
+                        <InputError :message="form.errors.code" class="mt-2" />
+                    </div>
                 </div>
-
-                <div class="mt-6">
-                    <InputLabel for="code" value="Study code" class="sr-only" />
-
-                    <TextInput
-                        id="code"
-                        v-model="form.code"
-                        class="mt-1 block w-3/4"
-                        placeholder="Study code..."
-                    />
-
-                    <InputError :message="form.errors.code" class="mt-2" />
-                </div>
-
-                <div class="mt-6 flex justify-end">
+                <div class="bg-[#f8f9fb] p-6 flex items-center justify-end">
                     <SecondaryButton @click="closeModal">
                         Cancel
                     </SecondaryButton>
