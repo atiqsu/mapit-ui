@@ -1,13 +1,14 @@
 <script setup>
+
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import AddNewButton from "@/Components/AddNewButton.vue";
-import { nextTick, ref } from "vue";
+import {nextTick, ref} from "vue";
 import TextInput from "@/Components/TextInput.vue";
 import Modal from "@/Components/Modal.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
-import { useForm } from "@inertiajs/vue3";
+import {useForm} from "@inertiajs/vue3";
 import SubmitButton from "@/Components/SubmitButton.vue";
 import ActionBtnEdit from "@/Components/ActionBtnEdit.vue";
 import ActionBtnDelete from "@/Components/ActionBtnDelete.vue";
@@ -24,6 +25,70 @@ defineProps({
         type: Array,
         default: () => [],
     },
+    preset: {
+        type: Array,
+        default: () => {
+            return {
+                "types_option": [
+                    'abc',
+                    'b22',
+                    'c55',
+                    'f55',
+                ],
+                name: 'my name',
+                "cols_option": [
+                    'abc',
+                    'b22',
+                    'c55',
+                    'f55',
+                ],
+                "cols_val": [
+
+                    'c55',
+                    'f55',
+                ],
+                "filter_option": [
+                    'abc',
+                    'b22',
+                    'c55',
+                    'f55',
+                ],
+                "sheets_option": {
+                    "sheet1": [
+                        'col1',
+                        'col2',
+                        'col3',
+                    ],
+                    "sheet2": [
+                        'col19',
+                        'col2',
+                        'col31',
+                    ],
+                    "sheet3": [
+                        'col1',
+                        'col22',
+                        'col36',
+                    ],
+                    "sheet4": [
+                        'col1',
+                        'col23',
+                        'col3',
+                    ],
+                    "sheet5": [
+                        'col1',
+                        'col0',
+                        'col3',
+                    ],
+                    "sheet6": [
+                        'filed',
+                        'var',
+                        'sdtm',
+                    ],
+                },
+            }
+
+        },
+    },
 });
 
 const form = useForm({
@@ -37,10 +102,10 @@ const editStudy = useForm({
     code: "",
 });
 
-const tblCols = ["ID", "name", "Code", "Actions"];
-const modalIsVisible = ref(false);
+const tblCols            = ["ID", "name", "Code", "Actions"];
+const modalIsVisible     = ref(false);
 const editModalIsVisible = ref(false);
-const nameInputFocus = ref("");
+const nameInputFocus     = ref("");
 
 const showModalForAddNew = () => {
     modalIsVisible.value = true;
@@ -50,7 +115,7 @@ const showModalForAddNew = () => {
 
 const showModalForEdit = (idd) => {
     editModalIsVisible.value = true;
-    editStudy.value = idd;
+    editStudy.value          = idd;
 
     console.log("wth....", idd, editStudy.value);
 
@@ -59,7 +124,7 @@ const showModalForEdit = (idd) => {
 };
 
 const closeModal = () => {
-    modalIsVisible.value = false;
+    modalIsVisible.value     = false;
     editModalIsVisible.value = false;
     form.reset();
     editStudy.reset();
@@ -77,6 +142,8 @@ const createProject = () => {
         onFinish: () => form.reset(),
     });
 };
+
+
 </script>
 
 <template>
@@ -84,12 +151,9 @@ const createProject = () => {
         <template #header>
             <div class="flex justify-between items-center pb-6">
                 <h2 class="font-semibold text-[18px] text-black leading-tight">
-                    List of studies
+                    New Preset
                 </h2>
 
-                <AddNewButton @click="showModalForAddNew">
-                    Create
-                </AddNewButton>
             </div>
         </template>
 
@@ -99,27 +163,27 @@ const createProject = () => {
                 id="usertbl"
             >
                 <thead>
-                    <tr class="bg-[#f1f4f9]">
-                        <th
-                            v-for="col in tblCols"
-                            :key="col"
-                            class="text-left p-4"
-                        >
-                            {{ col }}
-                        </th>
-                    </tr>
+                <tr class="bg-[#f1f4f9]">
+                    <th
+                        v-for="col in tblCols"
+                        :key="col"
+                        class="text-left p-4"
+                    >
+                        {{ col }}
+                    </th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="study in studies" :key="study.id">
-                        <td class="p-4">{{ study.id }}</td>
-                        <td class="p-4">{{ study.name }}</td>
-                        <td class="p-4">{{ study.code }}</td>
-                        <td class="p-4 flex items-center gap-3">
-                            <ActionBtnEdit @click="showModalForEdit(study)" />
+                <tr v-for="study in studies" :key="study.id">
+                    <td class="p-4">{{ study.id }}</td>
+                    <td class="p-4">{{ study.name }}</td>
+                    <td class="p-4">{{ study.code }}</td>
+                    <td class="p-4 flex items-center gap-3">
+                        <ActionBtnEdit @click="showModalForEdit(study)"/>
 
-                            <ActionBtnActive status="1" />
-                        </td>
-                    </tr>
+                        <ActionBtnActive/>
+                    </td>
+                </tr>
                 </tbody>
             </table>
 
@@ -132,7 +196,7 @@ const createProject = () => {
             <div class="rounded-2xl">
                 <div class="p-6 pt-10 bg-white">
                     <div class="text-center mb-6">
-                        <img class="mx-auto mb-5" :src="userModalIcon" alt="" />
+                        <img class="mx-auto mb-5" :src="userModalIcon" alt=""/>
                         <h3 class="text-[20px] font-medium text-[#1C1E38]">
                             Create project
                         </h3>
@@ -207,7 +271,7 @@ const createProject = () => {
                     </div>
                 </div>
                 <div class="bg-[#F8F9FB] p-6 flex items-center justify-end">
-                    <CancelButton @click="closeModal"> Cancel </CancelButton>
+                    <CancelButton @click="closeModal"> Cancel</CancelButton>
 
                     <SubmitButton
                         :class="{ 'opacity-25': form.processing }"
@@ -223,7 +287,7 @@ const createProject = () => {
         <Modal :show="editModalIsVisible" @close="closeModal">
             <div>
                 <div class="p-6 pt-10 bg-white text-black">
-                    <img class="mx-auto mb-4" :src="userModalIcon" alt="" />
+                    <img class="mx-auto mb-4" :src="userModalIcon" alt=""/>
                     <h2 class="text-lg font-medium text-center">
                         Update project info
                     </h2>
@@ -247,7 +311,7 @@ const createProject = () => {
                             placeholder="Study name..."
                         />
 
-                        <InputError :message="form.errors.name" class="mt-2" />
+                        <InputError :message="form.errors.name" class="mt-2"/>
                     </div>
 
                     <div class="mt-6">
@@ -264,43 +328,7 @@ const createProject = () => {
                             placeholder="Study code..."
                         />
 
-                        <InputError :message="form.errors.code" class="mt-2" />
-                    </div>
-                    <div class="mt-6">
-                        <label class="text-sm font-semibold">
-                            User access details
-                        </label>
-                        <table id="stbl" class="w-full mt-3 rounded-lg">
-                            <tr>
-                                <th
-                                    class="text-left text-[12px] p-3 bg-[#f8f9fb]"
-                                >
-                                    User
-                                </th>
-                                <th
-                                    class="text-left text-[12px] p-3 bg-[#f8f9fb]"
-                                >
-                                    Access
-                                </th>
-                            </tr>
-
-                            <tr v-for="user in users" :key="user.id">
-                                <td class="text-[12px] p-3">
-                                    {{ user.name }}
-                                </td>
-                                <td class="p-3 flex items-center gap-2">
-                                    <input
-                                        type="checkbox"
-                                        v-model="user.hasAccess"
-                                        name="hasAccess"
-                                        id="hasAccess1"
-                                    />
-                                    <label class="text-[12px]" for="hasAccess1">
-                                        Has Access
-                                    </label>
-                                </td>
-                            </tr>
-                        </table>
+                        <InputError :message="form.errors.code" class="mt-2"/>
                     </div>
                 </div>
                 <div class="bg-[#f8f9fb] p-6 flex items-center justify-end">
