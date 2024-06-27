@@ -12,7 +12,8 @@ import ActionBtnEdit from "@/Components/ActionBtnEdit.vue";
 import userModalIcon from "../../../images/userModalIcon.svg";
 import CancelButton from "@/Components/CancelButton.vue";
 import ActionBtnActive from "@/Components/ActionBtnActive.vue";
-import {assignedUserIds} from '@/helper.js';
+import { assignedUserIds } from "@/helper.js";
+import Paginator from "primevue/paginator";
 
 const props = defineProps({
     studies: {
@@ -45,23 +46,18 @@ const assignedUsers = ref([]);
 assignedUsers.value = props.users;
 
 const populateAssignedUsers = (assigned) => {
-
-    assignedUsers.value.map(user => {
-
+    assignedUsers.value.map((user) => {
         user.hasAccess = false;
 
-        if(assigned) {
+        if (assigned) {
+            const found = assigned.find((element) => element.id === user.id);
 
-            const found = assigned.find(element => element.id === user.id);
-
-            if(found) {
+            if (found) {
                 user.hasAccess = true;
             }
         }
     });
 };
-
-
 
 const showModalForAddNew = () => {
     modalIsVisible.value = true;
@@ -70,7 +66,6 @@ const showModalForAddNew = () => {
 };
 
 const showModalForEdit = (std) => {
-
     editModalIsVisible.value = true;
 
     editStudy.id = std.id;
@@ -89,14 +84,11 @@ const closeModal = () => {
     editStudy.reset();
 };
 
-
 const createProject = () => {
-    form.
-        transform((data) => ({
-            ...data,
-            users: assignedUserIds(props.users),
-        }))
-        .post(route("studies.store"), {
+    form.transform((data) => ({
+        ...data,
+        users: assignedUserIds(props.users),
+    })).post(route("studies.store"), {
         preserveScroll: true,
         onSuccess: () => closeModal(),
         onError: () => nameInputFocus.value.focus(),
@@ -105,31 +97,28 @@ const createProject = () => {
 };
 
 const updateProject = () => {
-
-    editStudy.
-        transform((data) => ({
+    editStudy
+        .transform((data) => ({
             ...data,
-            users: assignedUserIds(props.users)
+            users: assignedUserIds(props.users),
         }))
-        .put(route("studies.update",editStudy.id), {
-        preserveScroll: true,
-        onSuccess: () => closeModal(),
-        onError: () => {
-
-        },
-        onFinish: () => editStudy.reset(),
-    });
-
-}
+        .put(route("studies.update", editStudy.id), {
+            preserveScroll: true,
+            onSuccess: () => closeModal(),
+            onError: () => {},
+            onFinish: () => editStudy.reset(),
+        });
+};
 
 const toggleAssigned = (user) => {
-
     if (assignedUsers.value.includes(user.id)) {
-        assignedUsers.value = assignedUsers.value.filter(id => id !== user.id);
+        assignedUsers.value = assignedUsers.value.filter(
+            (id) => id !== user.id
+        );
     } else {
         assignedUsers.value.push(user.id);
     }
-}
+};
 </script>
 
 <template>
@@ -176,11 +165,20 @@ const toggleAssigned = (user) => {
                 </tbody>
             </table>
 
+            <div class="card w-fit ms-auto pagination">
+                <Paginator
+                    :template="{
+                        default:
+                            'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink JumpToPageDropdown JumpToPageInput',
+                    }"
+                    :rows="10"
+                    :totalRecords="120"
+                >
+                </Paginator>
+            </div>
 
-<!--            <pre>{{ assignedUserIds(assignedUsers) }}</pre>-->
-<!--            <pre>{{ assignedUsers }}</pre>-->
-
-
+            <!--            <pre>{{ assignedUserIds(assignedUsers) }}</pre>-->
+            <!--            <pre>{{ assignedUsers }}</pre>-->
         </template>
 
         <!-- Create New Study modal Here -->
@@ -263,7 +261,6 @@ const toggleAssigned = (user) => {
                     </div>
                 </div>
                 <div class="bg-[#F8F9FB] p-6 flex items-center justify-end">
-
                     <CancelButton @click="closeModal"> Cancel </CancelButton>
 
                     <SubmitButton
@@ -286,7 +283,9 @@ const toggleAssigned = (user) => {
                         Update project info
                     </h2>
 
-                    <p class="mt-1 text-sm text-gray-600 dark:text-gray-400"></p>
+                    <p
+                        class="mt-1 text-sm text-gray-600 dark:text-gray-400"
+                    ></p>
 
                     <div class="mt-6">
                         <InputLabel
@@ -303,7 +302,10 @@ const toggleAssigned = (user) => {
                             placeholder="Study name..."
                         />
 
-                        <InputError :message="editStudy.errors.name" class="mt-2" />
+                        <InputError
+                            :message="editStudy.errors.name"
+                            class="mt-2"
+                        />
                     </div>
 
                     <div class="mt-6">
@@ -321,7 +323,10 @@ const toggleAssigned = (user) => {
                             placeholder="Study code..."
                         />
 
-                        <InputError :message="editStudy.errors.code" class="mt-2" />
+                        <InputError
+                            :message="editStudy.errors.code"
+                            class="mt-2"
+                        />
                     </div>
                     <div class="mt-6">
                         <label class="text-sm font-semibold">
@@ -329,10 +334,14 @@ const toggleAssigned = (user) => {
                         </label>
                         <table id="stbl" class="w-full mt-3 rounded-lg">
                             <tr>
-                                <th class="text-left text-[12px] p-3 bg-[#f8f9fb]" >
+                                <th
+                                    class="text-left text-[12px] p-3 bg-[#f8f9fb]"
+                                >
                                     User
                                 </th>
-                                <th class="text-left text-[12px] p-3 bg-[#f8f9fb]" >
+                                <th
+                                    class="text-left text-[12px] p-3 bg-[#f8f9fb]"
+                                >
                                     Access
                                 </th>
                             </tr>
@@ -356,9 +365,7 @@ const toggleAssigned = (user) => {
                     </div>
                 </div>
                 <div class="bg-[#f8f9fb] p-6 flex items-center justify-end">
-                    <CancelButton @click="closeModal">
-                        Cancel
-                    </CancelButton>
+                    <CancelButton @click="closeModal"> Cancel </CancelButton>
 
                     <SubmitButton
                         :class="{ 'opacity-25': form.processing }"
@@ -370,7 +377,6 @@ const toggleAssigned = (user) => {
                 </div>
             </div>
         </Modal>
-
     </AuthenticatedLayout>
 </template>
 
@@ -392,4 +398,5 @@ const toggleAssigned = (user) => {
         border: 1px solid #f8f9fb;
     }
 }
+
 </style>
