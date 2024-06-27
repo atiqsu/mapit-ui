@@ -1,5 +1,5 @@
 <script setup>
-import { nextTick, ref } from "vue";
+import { nextTick, ref, watch } from "vue";
 import { useForm } from "@inertiajs/vue3";
 import MultiSelect from "primevue/multiselect";
 import Select from "primevue/select";
@@ -61,7 +61,6 @@ const selectedSheetRelation2 = ref(null);
 const selectedSheetCols2 = ref([]);
 
 // Delete action in preserve cols
-
 const handleDeleteCols = (ind) => {
     selectedPreserveCols.value.splice(ind, 1);
 };
@@ -80,49 +79,9 @@ const updateSheetRelation = () => {
         preset.value.sheets_option[selectedSheetRelation.value] || [];
 };
 
-// Change Sheet Relation Data Second Part
 const updateSheetRelation2 = () => {
     selectedSheetCols2.value =
         preset.value.sheets_option[selectedSheetRelation2.value] || [];
-};
-
-const tblCols = ["ID", "name", "Code", "Actions"];
-const modalIsVisible = ref(false);
-const editModalIsVisible = ref(false);
-const nameInputFocus = ref("");
-
-const showModalForAddNew = () => {
-    modalIsVisible.value = true;
-
-    nextTick(() => nameInputFocus.value.focus());
-};
-
-const showModalForEdit = (idd) => {
-    editModalIsVisible.value = true;
-    editStudy.value = idd;
-
-    console.log("wth....", idd, editStudy.value);
-
-    //nextTick(() => nameInputFocus.value.focus());
-};
-
-const closeModal = () => {
-    modalIsVisible.value = false;
-    editModalIsVisible.value = false;
-    form.reset();
-    editStudy.reset();
-};
-
-const createProject = () => {
-    form.transform((data) => ({
-        ...data,
-        users: data.remember ? "on" : "",
-    })).post(route("studies.store"), {
-        preserveScroll: true,
-        onSuccess: () => closeModal(),
-        onError: () => nameInputFocus.value.focus(),
-        onFinish: () => form.reset(),
-    });
 };
 </script>
 
@@ -187,14 +146,14 @@ const createProject = () => {
                                     class="w-full md:w-52 rounded py-2 px-3 border border-[#e5e7eb] hover:border-[#94a3b8] flex items-center justify-between"
                                 >
                                     {{ selectedPreserveCol }}
-                                    <CancelButton
+                                    <Button
                                         @click="handleDeleteCols(index)"
                                         class="px-1 py-1 dark:bg-[#e5e7eb] border-0 dark:text-slate-400 bg-transparent dark:hover:bg-[#e5e7eb] rounded-full w-3 h-3 flex items-center justify-center hover:text-slate-600 focus:ring-0 focus:ring-offset-0"
                                     >
                                         <i
                                             class="pi pi-times-circle text-[0.5rem]"
                                         ></i>
-                                    </CancelButton>
+                                    </Button>
                                 </li>
                             </ul>
                         </td>
@@ -223,14 +182,14 @@ const createProject = () => {
                                     class="w-full md:w-52 rounded py-2 px-3 border border-[#e5e7eb] hover:border-[#94a3b8] flex items-center justify-between"
                                 >
                                     {{ selectedFilters }}
-                                    <CancelButton
+                                    <Button
                                         @click="handleDeleteFilterOption(index)"
                                         class="px-1 py-1 dark:bg-[#e5e7eb] border-0 dark:text-slate-400 bg-transparent dark:hover:bg-[#e5e7eb] rounded-full w-3 h-3 flex items-center justify-center hover:text-slate-600 focus:ring-0 focus:ring-offset-0"
                                     >
                                         <i
                                             class="pi pi-times-circle text-[0.5rem]"
                                         ></i>
-                                    </CancelButton>
+                                    </Button>
                                 </li>
                             </ul>
                         </td>
@@ -289,8 +248,10 @@ const createProject = () => {
                                 <AddNewButton />
                             </div>
                             <div class="flex items-center gap-4">
-                                <SubmitButton class="ms-0"> Save </SubmitButton>
-                                <CancelButton> Close </CancelButton>
+                                <SubmitButton style="margin-left: 0 !important"
+                                    >Save</SubmitButton
+                                >
+                                <CancelButton>Close</CancelButton>
                             </div>
                         </td>
                     </tr>
