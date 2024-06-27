@@ -34,9 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('study/create', [StudyController::class, 'create'])->name('studies.create');
     Route::post('study', [StudyController::class, 'store'])->name('studies.store');
     Route::put('study/{id}', [StudyController::class, 'update'])->name('studies.update');
-
-    Route::get('study/edit/{id}', [StudyController::class, 'edit'])->name('studies.edit');
-    Route::delete('study/{id}', [StudyController::class, 'destroy'])->name('studies.destroy');
+    Route::put('study/{id}', [StudyController::class, 'changeStatus'])->name('studies.change');
 
     /**
      * Preset
