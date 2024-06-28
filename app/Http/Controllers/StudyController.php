@@ -69,7 +69,9 @@ class StudyController extends Controller
 
         $study->update(['is_active' => $data['is_active']]);
 
-        return Redirect::route('study.index')->with('success', 'Study updated successfully.');
+        return redirect()->back()->with('success', 'Project status updated successfully! - '. $id);
+
+        //return Redirect::route('study.index')->with('success', 'Study updated successfully.');
     }
-    
+
 }

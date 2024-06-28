@@ -1,18 +1,20 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import AddNewButton from "@/Components/AddNewButton.vue";
-import {nextTick, ref} from "vue";
+import {computed, nextTick, onMounted, ref, watch} from "vue";
 import TextInput from "@/Components/TextInput.vue";
 import Modal from "@/Components/Modal.vue";
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
-import {useForm} from "@inertiajs/vue3";
+import {useForm, usePage} from "@inertiajs/vue3";
 import SubmitButton from "@/Components/SubmitButton.vue";
 import ActionBtnEdit from "@/Components/ActionBtnEdit.vue";
 import userModalIcon from "../../../images/userModalIcon.svg";
 import CancelButton from "@/Components/CancelButton.vue";
 import ActionBtnActive from "@/Components/ActionBtnActive.vue";
 import {assignedUserIds} from '@/helper.js';
+import {useToast} from 'vue-toastification';
+
 
 const props = defineProps({
     studies: {
@@ -24,6 +26,37 @@ const props = defineProps({
         default: () => [],
     },
 });
+
+const toast = useToast();
+const page  = usePage();
+const showFlash = ref(false);
+
+const flash = computed(() => page.props.value?.flash || {});
+
+
+watch(page.props, function (val) {
+
+    console.log('Everytime....', val);
+    if (val?.flash) {
+
+        console.log('here i am.....');
+        showFlash.value = true;
+    }
+}, {
+    immediate: true,
+    deep: true,
+});
+
+
+
+
+// watch(() => page.props.value.flash, (newFlash) => {
+//     if (newFlash.success) {
+//         console.log('Flash message:', newFlash.success); // Debug log
+//         toast.success(newFlash.success);
+//     }
+// });
+
 
 const form = useForm({
     name: "",
@@ -116,27 +149,43 @@ const updateProject = () => {
         onError: () => {
 
         },
-        onFinish: () => editStudy.reset(),
+        onFinish: () => {
+            console.log('finished....');
+            editStudy.reset()
+        },
     });
 }
 
 const updateProjectStatus = (std) => {
 
-    editStudy.id   = std.id;
-    editStudy.name = std.name;
-    editStudy.code = std.code;
-    editStudy.is_active = std.is_active == 0?  1 : 0;
+    editStudy.id        = std.id;
+    editStudy.name      = std.name;
+    editStudy.code      = std.code;
+    editStudy.is_active = std.is_active == 0 ? 1 : 0;
 
     editStudy.
         put(route("studies.change", editStudy.id), {
-        preserveScroll: true,
-        onSuccess: (res) => {
-            closeModal();
-        },
-        onError: () => {},
-        onFinish: () => form.reset(),
-    });
+            preserveScroll: true,
+            onSuccess: () => closeModal(),
+            onError: () => {
+            },
+            onFinish: () => editStudy.reset(),
+        });
 };
+
+
+// onMounted(() => {
+//     if(page.props.flash.success) {
+//         toast.success(page.props.flash.success);
+//     }
+// })
+
+
+const showToast = () => {
+    toast.success(page.props.flash.success);
+}
+// 5-F
+// 10-F, 5-H
 
 </script>
 
@@ -151,14 +200,27 @@ const updateProjectStatus = (std) => {
                 <AddNewButton @click="showModalForAddNew">
                     Create
                 </AddNewButton>
+
             </div>
         </template>
 
         <template #content>
-            <table class="w-full border border-[#f3f3f7] rounded-lg" id="usertbl" >
+
+            <div>
+                {{ page.props.flash }}
+            </div>
+
+            <div v-if="showFlash && flash.message" @click="showFlash = false">
+                {{ flash.message }} - {{ flash.type }}
+            </div>
+
+            <button @click="showToast">ddd</button>
+
+
+            <table class="w-full border border-[#f3f3f7] rounded-lg" id="usertbl">
                 <thead>
                 <tr class="bg-[#f1f4f9]">
-                    <th v-for="col in tblCols" :key="col" class="text-left p-4" >
+                    <th v-for="col in tblCols" :key="col" class="text-left p-4">
                         {{ col }}
                     </th>
                 </tr>

@@ -1,13 +1,13 @@
 <script setup>
-import { ref } from "vue";
+import {ref} from "vue";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
 import NavLink from "@/Components/NavLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
-import { Link } from "@inertiajs/vue3";
-import "primeicons/primeicons.css";
-import { computed } from "vue";
+import {Link} from "@inertiajs/vue3";
+import {computed} from "vue";
+
 
 const showingNavigationDropdown = ref(false);
 
@@ -19,11 +19,12 @@ const activeLinkStyle = computed(
     after:border-l-[20px] after:border-l-[#fdd0d3] after:border-t-[25px] after:border-t-[transparent]
     after:border-b-[25px] after:border-b-[transparent] before:absolute before:content-[""] before:bottom-0
     before:left-0 before:w-0 before:h-0 before:border-l-[20px] before:border-l-[#f6f6f6] before:border-t-[25px]
-    before:border-t-[transparent] before:border-b-[25px] before:border-b-[transparent] font-semibold py-3 px-8 pl-[50px]`
+    before:border-t-[transparent] before:border-b-[25px] before:border-b-[transparent] font-semibold py-3 px-8 pl-[50px]`,
 );
 </script>
 
 <template>
+
     <div>
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
             <div class="flex">
@@ -39,7 +40,7 @@ const activeLinkStyle = computed(
                             <!-- Logo -->
                             <div class="mb-5">
                                 <Link :href="route('dashboard')">
-                                    <ApplicationLogo class="bg-white" />
+                                    <ApplicationLogo class="bg-white"/>
                                 </Link>
                             </div>
 
@@ -49,32 +50,31 @@ const activeLinkStyle = computed(
                                     :href="route('dashboard')"
                                     :active="route().current('dashboard')"
                                 >
-                                    <i class="pi pi-objects-column"></i>
-                                    Dashboard
+                                    <i class="pi pi-objects-column"></i> Dashboard
                                 </NavLink>
-                                <NavLink>
-                                    <i class="pi pi-ticket"></i>
-                                    Projects
+
+                                <NavLink :href="route('study.index')">
+                                    <i class="pi pi-ticket"></i> Projects
                                 </NavLink>
-                                <NavLink>
-                                    <i class="pi pi-users"></i>
-                                    Users
+
+                                <NavLink :href="route('dashboard')">
+                                    <i class="pi pi-users"></i> Users
                                 </NavLink>
-                                <NavLink>
-                                    <i class="pi pi-th-large"></i>
-                                    Rules
+
+                                <NavLink :href="route('dashboard')">
+                                    <i class="pi pi-th-large"></i> Rules
                                 </NavLink>
-                                <NavLink>
-                                    <i class="pi pi-chart-bar"></i>
-                                    Report
+
+                                <NavLink :href="route('dashboard')" >
+                                    <i class="pi pi-chart-bar"></i> Report
                                 </NavLink>
-                                <NavLink>
-                                    <i class="pi pi-cog"></i>
-                                    Setting
+
+                                <NavLink :href="route('dashboard')" >
+                                    <i class="pi pi-cog"></i> Setting
                                 </NavLink>
-                                <NavLink>
-                                    <i class="pi pi-power-off"></i>
-                                    Logout
+
+                                <NavLink :href="route('dashboard')" >
+                                    <i class="pi pi-power-off"></i> Logout
                                 </NavLink>
                             </div>
                         </div>
@@ -92,7 +92,7 @@ const activeLinkStyle = computed(
                                 <a
                                     class="bg-white text-[#C12F30] w-full px-3 py-2 rounded-lg block font-semibold"
                                     href
-                                    >Documentation</a
+                                >Documentation</a
                                 >
                             </div>
                             <div
@@ -162,7 +162,8 @@ const activeLinkStyle = computed(
                                 :href="route('dashboard')"
                                 :active="route().current('dashboard')"
                             >
-                                Dashboard</ResponsiveNavLink
+                                Dashboard
+                            </ResponsiveNavLink
                             >
                         </div>
 
@@ -212,19 +213,21 @@ const activeLinkStyle = computed(
                                 <div
                                     class="flex items-center bg-[#f6f6f6] relative after:absolute after:content-[''] after:right-[-20px] after:bottom-0 after:top-0 after:w-0 after:h-0 after:border-l-[20px] after:border-l-[#f6f6f6] after:border-t-[25px] after:border-t-[transparent] after:border-b-[25px] after:border-b-[transparent]"
                                 >
-                                    <Link class="py-3 px-8">
-                                        <i class="pi pi-home"></i>
-                                        Dashboard
+                                    <Link class="py-3 px-8" :href="route('dashboard')">
+                                        <i class="pi pi-home"></i> Dashboard
                                     </Link>
-                                    <Link
-                                        class="py-3 px-8 relative bg-[#fdd0d3] text-[#c12f30]"
+
+                                    <Link class="py-3 px-8 relative bg-[#fdd0d3] text-[#c12f30]"
+                                        :href="route('dashboard')"
                                         :class="{
                                             [activeLinkStyle]: (isActive = 1),
                                         }"
                                     >
                                         Admin
                                     </Link>
-                                    <Link class="py-3 px-8"> Rules </Link>
+
+                                    <Link class="py-3 px-8" :href="route('dashboard')"> Rules</Link>
+
                                 </div>
                                 <!-- Top header right side Content -->
                                 <div class="flex items-center gap-3">
@@ -269,18 +272,12 @@ const activeLinkStyle = computed(
                                                                 class="text-left font-bold text-black text-[18px] capitalize"
                                                             >
                                                                 {{
-                                                                    $page.props
-                                                                        .auth
-                                                                        .user
-                                                                        .name
+                                                                    $page.props.auth.user.name
                                                                 }}
                                                             </span>
                                                             <span>
                                                                 {{
-                                                                    $page.props
-                                                                        .auth
-                                                                        .user
-                                                                        .email
+                                                                    $page.props.auth.user.email
                                                                 }}
                                                             </span>
                                                         </span>
@@ -306,13 +303,14 @@ const activeLinkStyle = computed(
                                                     :href="
                                                         route('profile.edit')
                                                     "
-                                                    >Profile</DropdownLink
+                                                >Profile
+                                                </DropdownLink
                                                 >
                                                 <DropdownLink
                                                     :href="route('logout')"
                                                     method="post"
                                                     as="button"
-                                                    >Log Out
+                                                >Log Out
                                                 </DropdownLink>
                                             </template>
                                         </Dropdown>
@@ -325,15 +323,16 @@ const activeLinkStyle = computed(
                     <!-- Page Content -->
                     <main class="bg-white p-6 ">
                         <div>
-                            <slot name="header" />
+                            <slot name="header"/>
 
-                            <slot name="content" />
+                            <slot name="content"/>
                         </div>
 
                         <div>
-                            <slot />
+                            <slot/>
                         </div>
                     </main>
+
                 </div>
             </div>
         </div>
