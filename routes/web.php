@@ -3,6 +3,7 @@
 use App\Http\Controllers\PresetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudyController;
+use App\Http\Controllers\StudyFiles;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -42,6 +43,12 @@ Route::middleware('auth')->group(function () {
      * Preset
      */
     Route::get('preset', [PresetController::class, 'index'])->name('preset.index');
+
+
+    /**
+     * File list
+     */
+    Route::get('files', [StudyFiles::class, 'index'])->name('files.index');
 
 });
 

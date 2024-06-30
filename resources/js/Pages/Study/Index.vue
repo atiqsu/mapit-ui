@@ -165,7 +165,7 @@ const toggleAssigned = (user) => {
                 </tbody>
             </table>
 
-            <div class="card w-fit ms-auto pagination">
+            <div class="card w-fit ms-auto pagination mt-4">
                 <Paginator
                     :template="{
                         default:

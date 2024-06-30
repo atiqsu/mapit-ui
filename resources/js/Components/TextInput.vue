@@ -30,7 +30,7 @@ defineExpose({ focus: () => input.value.focus() });
 
 <template>
     <input
-        class="block w-full focus:outline-none focus:ring focus:ring-[#4790FC] mt-3 rounded-lg bg-[#f8f9fb] border-0 p-4"
+        class="block  focus:outline-none focus:ring focus:ring-[#4790FC] mt-3 rounded-lg bg-[#f8f9fb] border-0 p-4 "
         v-model="model"
         ref="input"
         :disabled="props.disabled"
