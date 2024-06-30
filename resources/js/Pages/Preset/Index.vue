@@ -100,6 +100,19 @@ const updateSheetRelation2 = () => {
                 <table class="space-y-7">
                     <tr class="flex items-start gap-5">
                         <td class="text-right w-[200px]">
+                            <h4 class="text-[24px] text-black">Preset name:</h4>
+                        </td>
+                        <td>
+                            <input
+                                class="w-full md:w-52 rounded border-[#e5e7eb] hover:border-[#94a3b8]"
+                                :value="preset.name"
+                                type="text"
+                            />
+                    
+                        </td>
+                    </tr>
+                    <tr class="flex items-start gap-5">
+                        <td class="text-right w-[200px]">
                             <h4 class="text-[24px] text-black">Preset type:</h4>
                         </td>
                         <td class="flex items-center gap-4">
@@ -113,11 +126,7 @@ const updateSheetRelation2 = () => {
                                     class="w-full md:w-52 bg-white"
                                 />
                             </div>
-                            <input
-                                class="w-full md:w-52 rounded border-[#e5e7eb] hover:border-[#94a3b8]"
-                                :value="preset.name"
-                                type="text"
-                            />
+                    
                         </td>
                     </tr>
                     <tr class="flex items-start gap-5">
