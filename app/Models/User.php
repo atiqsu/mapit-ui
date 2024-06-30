@@ -48,6 +48,6 @@ class User extends Authenticatable
 
     public function studies(): BelongsToMany
     {
-        return $this->belongsToMany(Study::class, 'study_users', 'user_id', 'study_id');
+        return $this->belongsToMany(Project::class, 'study_users', 'user_id', 'study_id');
     }
 }

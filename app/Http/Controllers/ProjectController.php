@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StudyCreateRequest;
 use App\Http\Requests\StudyStatusChangeRequest;
 use App\Http\Requests\StudyUpdateRequest;
-use App\Models\Study;
+use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
@@ -18,7 +18,7 @@ class ProjectController extends Controller
     public function index(): Response
     {
         return Inertia::render('Study/Index', [
-            'studies' =>  Study::with('users')->get(),
+            'studies' =>  Project::with('users')->get(),
             'users' => User::select('id', 'name')->orderby('name', 'asc')->get()]
         );
     }
@@ -28,7 +28,7 @@ class ProjectController extends Controller
     {
         $data =  $request->all();
 
-        $study = Study::create($request->validated());
+        $study = Project::create($request->validated());
 
         $study->users()->sync($data['users']);
 
@@ -37,7 +37,7 @@ class ProjectController extends Controller
 
     public function update(StudyUpdateRequest $request, $id ): RedirectResponse
     {
-        $study = Study::findOrFail($id);
+        $study = Project::findOrFail($id);
 
         if(empty($study)) {
 
@@ -56,7 +56,7 @@ class ProjectController extends Controller
     public function changeStatus(StudyStatusChangeRequest $request, $id ): RedirectResponse
     {
 
-        $study = Study::findOrFail($id);
+        $study = Project::findOrFail($id);
 
         if(empty($study)) {
 

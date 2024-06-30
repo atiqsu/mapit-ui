@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Project;
+use App\Models\User;
 use Inertia\Inertia;
 use Inertia\Response;
-use App\Models\Study;
-use App\Models\User;
 
 class StudyFiles extends Controller
 {
@@ -16,7 +15,7 @@ class StudyFiles extends Controller
         return Inertia::render(
             'StudyFiles/Index',
             [
-                'studies' => Study::all(),
+                'studies' => Project::all(),
                 //'preset'   => [],
                 'users'   => User::select('id', 'name')->orderby('name', 'asc')->get(),
             ]

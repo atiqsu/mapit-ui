@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Study;
+use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -15,7 +15,7 @@ class PresetController extends Controller
         return Inertia::render(
             'Preset/Index',
             [
-                'studies' => Study::all(),
+                'studies' => Project::all(),
                 //'preset'   => [],
                 'users'   => User::select('id', 'name')->orderby('name', 'asc')->get(),
             ]
