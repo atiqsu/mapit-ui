@@ -3,8 +3,8 @@ import { defineProps } from 'vue';
 
 const props = defineProps({
     status: {
-        type: String,
-        default: '1',  // 0 | 1
+        type: Number,
+        default: 1,  // 0 | 1
     },
 });
 </script>

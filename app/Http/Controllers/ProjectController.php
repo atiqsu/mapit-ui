@@ -3,17 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StudyCreateRequest;
+use App\Http\Requests\StudyStatusChangeRequest;
 use App\Http\Requests\StudyUpdateRequest;
 use App\Models\Study;
 use App\Models\User;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class StudyController extends Controller
+class ProjectController extends Controller
 {
 
     public function index(): Response
@@ -54,14 +53,23 @@ class StudyController extends Controller
         return Redirect::route('study.index')->with('success', 'Study updated successfully.');
     }
 
-    public function edit(Request $request, Study $study): JsonResponse
+    public function changeStatus(StudyStatusChangeRequest $request, $id ): RedirectResponse
     {
 
-        $dt['req'] = $request->all();
-        $dt['ss'] = $request->pa();
-        $dt['st'] = $study;
+        $study = Study::findOrFail($id);
 
-        return response()->json($dt);
+        if(empty($study)) {
+
+            return Redirect::route('study.index')->with('error', 'Failed....');
+        }
+
+        $data =  $request->validated();
+
+        $study->update(['is_active' => $data['is_active']]);
+
+        return redirect()->back()->with('success', 'Project status updated successfully! - '. $id);
+
+        //return Redirect::route('study.index')->with('success', 'Study updated successfully.');
     }
 
 }

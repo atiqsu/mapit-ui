@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\PresetController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\StudyController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\StudyFiles;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -30,14 +30,14 @@ Route::middleware('auth')->group(function () {
     /**
      * Projects
      */
-    Route::get('project', [StudyController::class, 'index'])->name('project.index');
+    Route::get('project', [ProjectController::class, 'index'])->name('project.index');
 
-    Route::get('project/create', [StudyController::class, 'create'])->name('project.create');
-    Route::post('project', [StudyController::class, 'store'])->name('project.store');
-    Route::put('project/{id}', [StudyController::class, 'update'])->name('project.update');
+    Route::get('project/create', [ProjectController::class, 'create'])->name('project.create');
+    Route::post('project', [ProjectController::class, 'store'])->name('project.store');
+    Route::put('project/{id}', [ProjectController::class, 'update'])->name('project.update');
 
-    Route::get('project/edit/{id}', [StudyController::class, 'edit'])->name('project.edit');
-    Route::delete('project/{id}', [StudyController::class, 'destroy'])->name('project.destroy');
+    Route::get('project/edit/{id}', [ProjectController::class, 'edit'])->name('project.edit');
+    Route::delete('project/{id}', [ProjectController::class, 'destroy'])->name('project.destroy');
 
     /**
      * Preset
