@@ -7,14 +7,12 @@ use App\Http\Requests\StudyStatusChangeRequest;
 use App\Http\Requests\StudyUpdateRequest;
 use App\Models\Study;
 use App\Models\User;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class StudyController extends Controller
+class ProjectController extends Controller
 {
 
     public function index(): Response
