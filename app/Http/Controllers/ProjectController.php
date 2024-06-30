@@ -17,7 +17,7 @@ class ProjectController extends Controller
 
     public function index(): Response
     {
-        return Inertia::render('Study/Index', [
+        return Inertia::render('Project/Index', [
             'studies' =>  Project::with('users')->get(),
             'users' => User::select('id', 'name')->orderby('name', 'asc')->get()]
         );
@@ -32,7 +32,7 @@ class ProjectController extends Controller
 
         $study->users()->sync($data['users']);
 
-        return Redirect::route('study.index')->with('success', 'Study created.');
+        return Redirect::route('project.index')->with('success', 'Project successfully created.');
     }
 
     public function update(StudyUpdateRequest $request, $id ): RedirectResponse
@@ -41,7 +41,7 @@ class ProjectController extends Controller
 
         if(empty($study)) {
 
-            return Redirect::route('study.index')->with('error', 'Failed....');
+            return Redirect::route('project.index')->with('error', 'Failed....');
         }
 
         $data =  $request->validated();
@@ -50,7 +50,7 @@ class ProjectController extends Controller
 
         $study->users()->sync($data['users']);
 
-        return Redirect::route('study.index')->with('success', 'Study updated successfully.');
+        return Redirect::route('project.index')->with('success', 'Project updated successfully.');
     }
 
     public function changeStatus(StudyStatusChangeRequest $request, $id ): RedirectResponse
@@ -60,7 +60,7 @@ class ProjectController extends Controller
 
         if(empty($study)) {
 
-            return Redirect::route('study.index')->with('error', 'Failed....');
+            return Redirect::route('project.index')->with('error', 'Failed....');
         }
 
         $data =  $request->validated();
@@ -68,8 +68,6 @@ class ProjectController extends Controller
         $study->update(['is_active' => $data['is_active']]);
 
         return redirect()->back()->with('success', 'Project status updated successfully! - '. $id);
-
-        //return Redirect::route('study.index')->with('success', 'Study updated successfully.');
     }
 
 }

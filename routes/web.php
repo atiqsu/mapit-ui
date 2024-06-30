@@ -3,6 +3,7 @@
 use App\Http\Controllers\PresetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\StudyController;
 use App\Http\Controllers\StudyFiles;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -48,12 +49,12 @@ Route::middleware('auth')->group(function () {
     /**
      * File list
      */
-    Route::get('files', [StudyFiles::class, 'index'])->name('files.index');
+    Route::get('study/{id}/files', [StudyFiles::class, 'index'])->name('files.index');
 
     /**
      * Study page
      */
-    Route::get('study/{id}', [StudyFiles::class, 'index'])->name('files.index');
+    Route::get('study/{id}', [StudyController::class, 'index'])->name('study.index');
 });
 
 
