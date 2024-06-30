@@ -9,6 +9,6 @@ class ProjectUser extends Model
 {
     use HasFactory;
 
-    protected $table = 'study_users';
+    protected $table = 'project_users';
 
 }
