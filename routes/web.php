@@ -28,16 +28,16 @@ Route::middleware('auth')->group(function () {
 
 
     /**
-     * Studies
+     * Projects
      */
-    Route::get('study', [StudyController::class, 'index'])->name('study.index');
+    Route::get('project', [StudyController::class, 'index'])->name('project.index');
 
-    Route::get('study/create', [StudyController::class, 'create'])->name('studies.create');
-    Route::post('study', [StudyController::class, 'store'])->name('studies.store');
-    Route::put('study/{id}', [StudyController::class, 'update'])->name('studies.update');
+    Route::get('project/create', [StudyController::class, 'create'])->name('project.create');
+    Route::post('project', [StudyController::class, 'store'])->name('project.store');
+    Route::put('project/{id}', [StudyController::class, 'update'])->name('project.update');
 
-    Route::get('study/edit/{id}', [StudyController::class, 'edit'])->name('studies.edit');
-    Route::delete('study/{id}', [StudyController::class, 'destroy'])->name('studies.destroy');
+    Route::get('project/edit/{id}', [StudyController::class, 'edit'])->name('project.edit');
+    Route::delete('project/{id}', [StudyController::class, 'destroy'])->name('project.destroy');
 
     /**
      * Preset
@@ -50,9 +50,13 @@ Route::middleware('auth')->group(function () {
      */
     Route::get('files', [StudyFiles::class, 'index'])->name('files.index');
 
+    /**
+     * Study page
+     */
+    Route::get('study/{id}', [StudyFiles::class, 'index'])->name('files.index');
 });
 
 
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
