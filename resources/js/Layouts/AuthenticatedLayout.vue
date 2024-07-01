@@ -53,7 +53,7 @@ const activeLinkStyle = computed(
                                     <i class="pi pi-objects-column"></i> Dashboard
                                 </NavLink>
 
-                                <NavLink :href="route('study.index')">
+                                <NavLink :href="route('dashboard')">
                                     <i class="pi pi-ticket"></i> Projects
                                 </NavLink>
 

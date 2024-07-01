@@ -10,9 +10,8 @@ import { ZiggyVue } from "../../vendor/tightenco/ziggy";
 import PrimeVue from "primevue/config";
 import Aura from "@primevue/themes/aura";
 
-import Toast from 'vue-toastification';
-import 'vue-toastification/dist/index.css';
-
+// import Toast from 'vue-toastification';
+// import 'vue-toastification/dist/index.css';
 
 const appName = import.meta.env.VITE_APP_NAME || "MAPIT-UI";
 
@@ -41,7 +40,7 @@ createInertiaApp({
                     },
                 },
             })
-            .use(Toast, options)
+            // .use(Toast, options)
             .mount(el);
     },
     progress: {

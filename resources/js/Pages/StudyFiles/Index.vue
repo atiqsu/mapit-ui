@@ -54,6 +54,7 @@ const editStudy = useForm({
     <AuthenticatedLayout>
         <template #header>
             <div class="pb-6">
+                <h3 class="font-semibold text-[18px] text-black leading-tight">list of files</h3>
                 <Fieldset legend="Filters">
                     <div class="space-y-4">
                         <div class="flex items-center gap-4">
@@ -98,6 +99,11 @@ const editStudy = useForm({
 
         <template #content>
             <div>
+           <div class="flex justify-end pb-6">
+                 <SubmitButton class="ms-0 py-4 px-6 text-[20px] capitalize">
+                    Upload New
+                </SubmitButton>
+           </div>
                 <table class="w-full" id="usertbl">
                     <tr>
                         <th>#</th>
@@ -175,9 +181,6 @@ const editStudy = useForm({
                     >
                     </Paginator>
                 </div>
-                <SubmitButton class="ms-0 py-4 px-6 text-[20px] capitalize">
-                    Upload New
-                </SubmitButton>
             </div>
         </template>
     </AuthenticatedLayout>

@@ -1,19 +1,19 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import AddNewButton from "@/Components/AddNewButton.vue";
-import {computed, nextTick, onMounted, ref, watch} from "vue";
+import { computed, nextTick, onMounted, ref, watch } from "vue";
 import TextInput from "@/Components/TextInput.vue";
 import Modal from "@/Components/Modal.vue";
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
-import {useForm, usePage} from "@inertiajs/vue3";
+import { useForm, usePage } from "@inertiajs/vue3";
 import SubmitButton from "@/Components/SubmitButton.vue";
 import ActionBtnEdit from "@/Components/ActionBtnEdit.vue";
 import userModalIcon from "../../../images/userModalIcon.svg";
 import CancelButton from "@/Components/CancelButton.vue";
 import ActionBtnActive from "@/Components/ActionBtnActive.vue";
-import {assignedUserIds} from '@/helper.js';
-import {useToast} from 'vue-toastification';
+import { assignedUserIds } from "@/helper.js";
+import { useToast } from "vue-toastification";
 
 import { assignedUserIds } from "@/helper.js";
 import Paginator from "primevue/paginator";
@@ -29,28 +29,26 @@ const props = defineProps({
     },
 });
 
-const toast = useToast();
-const page  = usePage();
+// const toast = useToast();
+const page = usePage();
 const showFlash = ref(false);
 
 const flash = computed(() => page.props.value?.flash || {});
 
-
-watch(page.props, function (val) {
-
-    console.log('Everytime....', val);
-    if (val?.flash) {
-
-        console.log('here i am.....');
-        showFlash.value = true;
+watch(
+    page.props,
+    function (val) {
+        console.log("Everytime....", val);
+        if (val?.flash) {
+            console.log("here i am.....");
+            showFlash.value = true;
+        }
+    },
+    {
+        immediate: true,
+        deep: true,
     }
-}, {
-    immediate: true,
-    deep: true,
-});
-
-
-
+);
 
 // watch(() => page.props.value.flash, (newFlash) => {
 //     if (newFlash.success) {
@@ -58,7 +56,6 @@ watch(page.props, function (val) {
 //         toast.success(newFlash.success);
 //     }
 // });
-
 
 const form = useForm({
     name: "",
@@ -72,11 +69,11 @@ const editStudy = useForm({
     is_active: 1,
 });
 
-const tblCols            = ["ID", "name", "Code", "Actions"];
-const modalIsVisible     = ref(false);
+const tblCols = ["ID", "name", "Code", "Actions"];
+const modalIsVisible = ref(false);
 const editModalIsVisible = ref(false);
-const nameInputFocus     = ref("");
-const assignedUsers      = ref([]);
+const nameInputFocus = ref("");
+const assignedUsers = ref([]);
 
 assignedUsers.value = props.users;
 
@@ -95,7 +92,6 @@ const populateAssignedUsers = (assigned) => {
 };
 
 const showModalForAddNew = () => {
-
     modalIsVisible.value = true;
 
     nextTick(() => nameInputFocus.value.focus());
@@ -104,7 +100,7 @@ const showModalForAddNew = () => {
 const showModalForEdit = (std) => {
     editModalIsVisible.value = true;
 
-    editStudy.id   = std.id;
+    editStudy.id = std.id;
     editStudy.name = std.name;
     editStudy.code = std.code;
 
@@ -114,7 +110,7 @@ const showModalForEdit = (std) => {
 };
 
 const closeModal = () => {
-    modalIsVisible.value     = false;
+    modalIsVisible.value = false;
     editModalIsVisible.value = false;
     form.reset();
     editStudy.reset();
@@ -137,36 +133,31 @@ const updateProject = () => {
         .transform((data) => ({
             ...data,
             users: assignedUserIds(props.users),
-        })).put(route("studies.update", editStudy.id), {
-        preserveScroll: true,
-        onSuccess: () => closeModal(),
-        onError: () => {
-
-        },
-        onFinish: () => {
-            console.log('finished....');
-            editStudy.reset()
-        },
-    });
-}
-
-const updateProjectStatus = (std) => {
-
-    editStudy.id        = std.id;
-    editStudy.name      = std.name;
-    editStudy.code      = std.code;
-    editStudy.is_active = std.is_active == 0 ? 1 : 0;
-
-    editStudy.
-        put(route("studies.change", editStudy.id), {
+        }))
+        .put(route("studies.update", editStudy.id), {
             preserveScroll: true,
             onSuccess: () => closeModal(),
-            onError: () => {
+            onError: () => {},
+            onFinish: () => {
+                console.log("finished....");
+                editStudy.reset();
             },
-            onFinish: () => editStudy.reset(),
         });
 };
 
+const updateProjectStatus = (std) => {
+    editStudy.id = std.id;
+    editStudy.name = std.name;
+    editStudy.code = std.code;
+    editStudy.is_active = std.is_active == 0 ? 1 : 0;
+
+    editStudy.put(route("studies.change", editStudy.id), {
+        preserveScroll: true,
+        onSuccess: () => closeModal(),
+        onError: () => {},
+        onFinish: () => editStudy.reset(),
+    });
+};
 
 // onMounted(() => {
 //     if(page.props.flash.success) {
@@ -175,12 +166,24 @@ const updateProjectStatus = (std) => {
 // })
 
 
-const showToast = () => {
-    toast.success(page.props.flash.success);
-}
+
+
+
+
+// const showToast = () => {
+//     toast.success(page.props.flash.success);
+// };
+
+
+
+
+
+
+
+
+
 // 5-F
 // 10-F, 5-H
-
 </script>
 
 <template>
@@ -194,12 +197,10 @@ const showToast = () => {
                 <AddNewButton @click="showModalForAddNew">
                     Create
                 </AddNewButton>
-
             </div>
         </template>
 
         <template #content>
-
             <div>
                 {{ page.props.flash }}
             </div>
@@ -208,28 +209,37 @@ const showToast = () => {
                 {{ flash.message }} - {{ flash.type }}
             </div>
 
-            <button @click="showToast">ddd</button>
+            <!-- <button @click="showToast">ddd</button> -->
 
-
-            <table class="w-full border border-[#f3f3f7] rounded-lg" id="usertbl">
+            <table
+                class="w-full border border-[#f3f3f7] rounded-lg"
+                id="usertbl"
+            >
                 <thead>
-                <tr class="bg-[#f1f4f9]">
-                    <th v-for="col in tblCols" :key="col" class="text-left p-4">
-                        {{ col }}
-                    </th>
-                </tr>
+                    <tr class="bg-[#f1f4f9]">
+                        <th
+                            v-for="col in tblCols"
+                            :key="col"
+                            class="text-left p-4"
+                        >
+                            {{ col }}
+                        </th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr v-for="study in studies" :key="study.id">
-                    <td class="p-4">{{ study.id }}</td>
-                    <td class="p-4">{{ study.name }}</td>
-                    <td class="p-4">{{ study.code }}</td>
-                    <td class="p-4 flex items-center gap-3">
-                        <ActionBtnEdit @click="showModalForEdit(study)"/>
+                    <tr v-for="study in studies" :key="study.id">
+                        <td class="p-4">{{ study.id }}</td>
+                        <td class="p-4">{{ study.name }}</td>
+                        <td class="p-4">{{ study.code }}</td>
+                        <td class="p-4 flex items-center gap-3">
+                            <ActionBtnEdit @click="showModalForEdit(study)" />
 
-                        <ActionBtnActive @click="updateProjectStatus(study)" :status="study.is_active"/>
-                    </td>
-                </tr>
+                            <ActionBtnActive
+                                @click="updateProjectStatus(study)"
+                                :status="study.is_active"
+                            />
+                        </td>
+                    </tr>
                 </tbody>
             </table>
 
@@ -254,7 +264,7 @@ const showToast = () => {
             <div class="rounded-2xl">
                 <div class="p-6 pt-10 bg-white">
                     <div class="text-center mb-6">
-                        <img class="mx-auto mb-5" :src="userModalIcon" alt=""/>
+                        <img class="mx-auto mb-5" :src="userModalIcon" alt="" />
                         <h3 class="text-[20px] font-medium text-[#1C1E38]">
                             Create project
                         </h3>
@@ -291,10 +301,14 @@ const showToast = () => {
                             </label>
                             <table id="stbl" class="w-full mt-3 rounded-lg">
                                 <tr>
-                                    <th class="text-left text-[12px] p-3 bg-[#f8f9fb]">
+                                    <th
+                                        class="text-left text-[12px] p-3 bg-[#f8f9fb]"
+                                    >
                                         User
                                     </th>
-                                    <th class="text-left text-[12px] p-3 bg-[#f8f9fb]">
+                                    <th
+                                        class="text-left text-[12px] p-3 bg-[#f8f9fb]"
+                                    >
                                         Access
                                     </th>
                                 </tr>
@@ -310,7 +324,10 @@ const showToast = () => {
                                             name="hasAccess"
                                             id="hasAccess1"
                                         />
-                                        <label class="text-[12px]" for="hasAccess1">
+                                        <label
+                                            class="text-[12px]"
+                                            for="hasAccess1"
+                                        >
                                             Has Access
                                         </label>
                                     </td>
@@ -337,7 +354,7 @@ const showToast = () => {
         <Modal :show="editModalIsVisible" @close="closeModal">
             <div>
                 <div class="p-6 pt-10 bg-white text-black">
-                    <img class="mx-auto mb-4" :src="userModalIcon" alt=""/>
+                    <img class="mx-auto mb-4" :src="userModalIcon" alt="" />
                     <h2 class="text-lg font-medium text-center">
                         Update project info
                     </h2>
@@ -361,7 +378,10 @@ const showToast = () => {
                             placeholder="Study name..."
                         />
 
-                        <InputError :message="editStudy.errors.name" class="mt-2"/>
+                        <InputError
+                            :message="editStudy.errors.name"
+                            class="mt-2"
+                        />
                     </div>
 
                     <div class="mt-6">
@@ -379,7 +399,10 @@ const showToast = () => {
                             placeholder="Study code..."
                         />
 
-                        <InputError :message="editStudy.errors.code" class="mt-2"/>
+                        <InputError
+                            :message="editStudy.errors.code"
+                            class="mt-2"
+                        />
                     </div>
                     <div class="mt-6">
                         <label class="text-sm font-semibold">
@@ -387,10 +410,14 @@ const showToast = () => {
                         </label>
                         <table id="stbl" class="w-full mt-3 rounded-lg">
                             <tr>
-                                <th class="text-left text-[12px] p-3 bg-[#f8f9fb]">
+                                <th
+                                    class="text-left text-[12px] p-3 bg-[#f8f9fb]"
+                                >
                                     User
                                 </th>
-                                <th class="text-left text-[12px] p-3 bg-[#f8f9fb]">
+                                <th
+                                    class="text-left text-[12px] p-3 bg-[#f8f9fb]"
+                                >
                                     Access
                                 </th>
                             </tr>
@@ -447,5 +474,4 @@ const showToast = () => {
         border: 1px solid #f8f9fb;
     }
 }
-
 </style>
