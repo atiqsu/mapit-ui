@@ -9,12 +9,19 @@ import { Head } from '@inertiajs/vue3';
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Dashboard555</h2>
+            <h2 class="font-semibold text-[18px] text-black leading-tight">Dashboard</h2>
         </template>
 
 
         <template #content>
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">ddfgfdgdf</h2>
+            <div class="grid grid-cols-3 gap-6">
+                <!-- Studes -->
+                <div class="col-span-1 p-6 rounded-lg bg-white">
+
+                </div>
+                <!-- Chart -->
+                <div class="col-span-2 p-6 rounded-lg bg-white"></div>
+            </div>
         </template>
 
 
