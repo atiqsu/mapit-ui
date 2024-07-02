@@ -54,7 +54,7 @@ const editStudy = useForm({
     <AuthenticatedLayout>
         <template #header>
             <div class="pb-6">
-                <h3 class="font-semibold text-[18px] text-black leading-tight">list of files</h3>
+                <h3 class="font-semibold text-[18px] text-black leading-tight">list of files</h3> 
                 <Fieldset legend="Filters">
                     <div class="space-y-4">
                         <div class="flex items-center gap-4">
